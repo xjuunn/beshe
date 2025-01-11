@@ -1,0 +1,14 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["@nuxt/types", "nuxt"],
+    "paths": {
+      "stores/*": ["./stores/*"],
+      "models/*": ["./models/*"],
+      "mocks/*": ["./mocks/*"],
+      "api/*": ["./api/*"],
+    }
+  }
+}
