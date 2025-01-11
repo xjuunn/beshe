@@ -4,11 +4,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["@nuxt/types", "nuxt"],
-    "paths": {
-      "stores/*": ["./stores/*"],
-      "models/*": ["./models/*"],
-      "mocks/*": ["./mocks/*"],
-      "api/*": ["./api/*"],
-    }
+    "paths": {}
   }
 }

@@ -5,9 +5,9 @@
 </template>
 
 <script lang="ts" setup>
+
 async function test() {
   const data = await $fetch('/api/test');
   console.log(data);
-  
 }
 </script>

@@ -4,11 +4,9 @@ import Components from 'unplugin-vue-components/vite';
 import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  ssr: false,
+  ssr: true,
   imports: {
-    dirs: [
-      "models/**/*", "stores/**/*", "mocks/**/*", "api/**/*"
-    ]
+    dirs: []
   },
   routeRules: {
     '/': { prerender: true }
