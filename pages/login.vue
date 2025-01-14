@@ -52,12 +52,25 @@ const route = useRoute();
 const type = computed(() => route.query.type === 'register' ? 'register' : 'login');
 let username = ref('');
 let password = ref('');
-const { login: logina } = useAppStore();
-function login() {
-  if (logina({ username: username.value, avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" ,
-    role:'admin'
-  }))
-    navigateTo('/')
+const { token:appToken ,setToken } = useAppStore();
+async function login() {
+  // if (logina({
+  //   username: username.value, avatar: "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+  //   role: 'admin'
+  // }))
+  //   navigateTo('/')
+
+  // @ts-ignore
+  let {token} = await $fetch('/api/login', {
+    method:"post",
+    body: {
+      username: username.value,
+      password: password.value,
+    }
+  })
+  console.log(token);
+  setToken(token);
+  localStorage.setItem('authToken',token)
 }
 let username2 = ref('');
 let password2 = ref('');

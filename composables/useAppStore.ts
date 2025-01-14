@@ -8,16 +8,21 @@ export const useAppStore = defineStore('App', () => {
     email: '',
     avatar: ''
   })
+  const _token = ref('');
   const user = computed(() => _user)
-
+  const token = computed(() => _token)
   function login(u: User): boolean {
     _user.value = u;
     return true;
+  }
+  function setToken(t: string) {
+    _token.value = t;
   }
 
   return {
     appName,
     user,
-    login
+    login,
+    token, setToken
   }
 })
