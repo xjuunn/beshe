@@ -2,8 +2,16 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
+    "lib": ["es5", "es6"],
     "baseUrl": ".",
     "types": ["@nuxt/types", "nuxt"],
-    "paths": {}
+    "paths": {},
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "target": "ES2022",
+    "module": "ESNext",
+    "strict": true,
+    "skipLibCheck": true
   }
 }
