@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --host",
+    "dev": "nuxi cleanup && nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -31,7 +31,6 @@
     "nuxt": "^3.15.1",
     "peerjs": "^1.5.4",
     "pinia": "^2.2.6",
-    "reflect-metadata": "^0.2.2",
     "tailwindcss": "^4.0.0-beta.8",
     "typeorm": "^0.3.20",
     "unplugin-vue": "^5.1.5",
@@ -54,7 +53,7 @@
     "typescript": "^5.7.3",
     "unplugin-icons": "^0.20.1",
     "unplugin-vue-components": "^0.27.4",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "^2.2.0"
   },
   "overrides": {
     "vue": "latest"
