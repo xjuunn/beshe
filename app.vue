@@ -1,24 +1,12 @@
 <template>
-  <div id="app-content" class="select-none relative overflow-x-hidden scrollbar-thin">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
-<script setup lang="ts">
 
-</script>
 <style>
-.glass {
-  background-image: none;
-  box-shadow: none;
-}
-
-.scrollbar-thin {
-  scrollbar-width: thin;
-}
-
-body {
-  overflow: hidden;
+html, body {
+  height: 100%;
+  /* overflow: hidden; */
 }
 </style>
