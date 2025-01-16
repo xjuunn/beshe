@@ -11,31 +11,31 @@
       </NuxtLink>
     </div>
 
-    <div v-if="!loading">
+    <div v-if="!false">
       <!-- 订单状态时间线 -->
       <div class="card bg-base-100 shadow-sm mb-6">
         <div class="card-body">
           <h2 class="card-title mb-4">订单状态</h2>
           <ul class="steps steps-vertical lg:steps-horizontal">
-            <li class="step" :class="{ 'step-primary': isStepCompleted('PENDING') }">
+            <li class="step" :class="'step-primary'">
               待付款
-              <span class="text-xs opacity-60">{{ getStepTime('PENDING') }}</span>
+              <span class="text-xs opacity-60">test</span>
             </li>
-            <li class="step" :class="{ 'step-primary': isStepCompleted('PAID') }">
+            <li class="step" :class="'step-primary'">
               已付款
-              <span class="text-xs opacity-60">{{ getStepTime('PAID') }}</span>
+              <span class="text-xs opacity-60">test</span>
             </li>
-            <li class="step" :class="{ 'step-primary': isStepCompleted('SHIPPING') }">
+            <li class="step" :class="'step-primary'">
               发货中
-              <span class="text-xs opacity-60">{{ getStepTime('SHIPPING') }}</span>
+              <span class="text-xs opacity-60">test</span>
             </li>
-            <li class="step" :class="{ 'step-primary': isStepCompleted('DELIVERED') }">
+            <li class="step" :class="'step-primary'">
               已送达
-              <span class="text-xs opacity-60">{{ getStepTime('DELIVERED') }}</span>
+              <span class="text-xs opacity-60">test</span>
             </li>
-            <li class="step" :class="{ 'step-primary': isStepCompleted('COMPLETED') }">
+            <li class="step" :class="'step-primary'">
               已完成
-              <span class="text-xs opacity-60">{{ getStepTime('COMPLETED') }}</span>
+              <span class="text-xs opacity-60">test</span>
             </li>
           </ul>
         </div>
@@ -50,15 +50,15 @@
             <div class="space-y-4">
               <div class="flex justify-between">
                 <span class="opacity-60">订单编号</span>
-                <span class="font-mono">{{ order?.id }}</span>
+                <span class="font-mono">test</span>
               </div>
               <div class="flex justify-between">
                 <span class="opacity-60">创建时间</span>
-                <span>{{ formatDateTime(order?.created_at) }}</span>
+                <span>test</span>
               </div>
               <div class="flex justify-between">
                 <span class="opacity-60">订单状态</span>
-                <div :class="{
+                <!-- <div :class="{
                   'badge': true,
                   'badge-warning': order?.status === 'PENDING',
                   'badge-info': order?.status === 'PAID',
@@ -66,11 +66,11 @@
                   'badge-success': order?.status === 'COMPLETED',
                   'badge-error': order?.status === 'CANCELLED',
                   'badge-ghost': order?.status === 'DELIVERED'
-                }">{{ orderStatusMap[order?.status || ''] }}</div>
+                }">{{ orderStatusMap[order?.status || ''] }}</div> -->
               </div>
               <div class="flex justify-between">
                 <span class="opacity-60">订单金额</span>
-                <span class="text-primary font-bold">¥{{ order?.total }}</span>
+                <span class="text-primary font-bold">¥test</span>
               </div>
             </div>
           </div>
@@ -83,15 +83,15 @@
             <div class="space-y-4">
               <div class="flex justify-between">
                 <span class="opacity-60">客户名称</span>
-                <span>{{ order?.user?.nickname || order?.user?.username }}</span>
+                <span>test</span>
               </div>
               <div class="flex justify-between">
                 <span class="opacity-60">联系电话</span>
-                <span>{{ order?.user?.phone }}</span>
+                <span>test</span>
               </div>
               <div class="flex justify-between">
                 <span class="opacity-60">用户ID</span>
-                <span class="font-mono">{{ order?.user?.id }}</span>
+                <span class="font-mono">test</span>
               </div>
             </div>
           </div>
@@ -113,29 +113,29 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="item in order?.items" :key="item.id" class="hover">
+                <tr v-for="item in 20" :key="item" class="hover">
                   <td>
                     <div class="flex items-center gap-3">
                       <div class="avatar">
                         <div class="mask mask-squircle w-12 h-12">
-                          <img :src="item.product.image || '/images/default-product.png'" :alt="item.product.name" />
+                          <img :src="'/images/default-product.png'" :alt="item+''" />
                         </div>
                       </div>
                       <div>
-                        <div class="font-bold">{{ item.product.name }}</div>
-                        <div class="text-sm opacity-50">ID: {{ item.product.id }}</div>
+                        <div class="font-bold">{{ item }}</div>
+                        <div class="text-sm opacity-50">ID: {{ item }}</div>
                       </div>
                     </div>
                   </td>
-                  <td>¥{{ item.price }}</td>
-                  <td>{{ item.quantity }}</td>
-                  <td class="text-primary font-bold">¥{{ Number(item.price) * item.quantity }}</td>
+                  <td>¥{{ item }}</td>
+                  <td>{{ item }}</td>
+                  <td class="text-primary font-bold">¥test</td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
                   <td colspan="3" class="text-right font-bold">总计：</td>
-                  <td class="text-primary font-bold text-xl">¥{{ order?.total }}</td>
+                  <td class="text-primary font-bold text-xl">¥test</td>
                 </tr>
               </tfoot>
             </table>
@@ -148,26 +148,10 @@
         <div class="card-body">
           <h2 class="card-title mb-4">订单操作</h2>
           <div class="flex gap-4">
-            <button 
-              v-if="order?.status === 'PENDING'"
-              class="btn btn-error"
-              @click="updateStatus('CANCELLED')"
-            >取消订单</button>
-            <button 
-              v-if="order?.status === 'PAID'"
-              class="btn btn-primary"
-              @click="updateStatus('SHIPPING')"
-            >发货</button>
-            <button 
-              v-if="order?.status === 'SHIPPING'"
-              class="btn btn-primary"
-              @click="updateStatus('DELIVERED')"
-            >确认送达</button>
-            <button 
-              v-if="order?.status === 'DELIVERED'"
-              class="btn btn-success"
-              @click="updateStatus('COMPLETED')"
-            >完成订单</button>
+            <button class="btn btn-error" @click="null">取消订单</button>
+            <button class="btn btn-primary" @click="null">发货</button>
+            <button class="btn btn-primary" @click="null">确认送达</button>
+            <button class="btn btn-success" @click="null">完成订单</button>
           </div>
         </div>
       </div>
@@ -181,79 +165,7 @@
 </template>
 
 <script setup lang="ts">
-import { useOrderStore } from '~/stores/order'
-import type { Order, OrderStatus } from '@prisma/client'
-
-// 页面元数据
 definePageMeta({
   layout: 'admin'
-})
-
-const route = useRoute()
-const orderId = Number(route.params.id)
-const orderStore = useOrderStore()
-
-// 加载状态
-const loading = ref(true)
-const order = ref<Order | null>(null)
-
-// 订单状态映射
-const orderStatusMap = {
-  'PENDING': '待付款',
-  'PAID': '已付款',
-  'SHIPPING': '发货中',
-  'DELIVERED': '已送达',
-  'COMPLETED': '已完成',
-  'CANCELLED': '已取消'
-}
-
-// 格式化日期时间
-const formatDateTime = (date: string | Date | undefined) => {
-  if (!date) return ''
-  return new Date(date).toLocaleString()
-}
-
-// 检查步骤是否完成
-const isStepCompleted = (status: OrderStatus) => {
-  if (!order.value) return false
-  const statusOrder = ['PENDING', 'PAID', 'SHIPPING', 'DELIVERED', 'COMPLETED']
-  const currentIndex = statusOrder.indexOf(order.value.status)
-  const targetIndex = statusOrder.indexOf(status)
-  return currentIndex >= targetIndex
-}
-
-// 获取步骤时间
-const getStepTime = (status: OrderStatus) => {
-  // 这里需要后端提供状态变更历史记录
-  // 暂时返回空字符串
-  return ''
-}
-
-// 更新订单状态
-const updateStatus = async (status: OrderStatus) => {
-  try {
-    await orderStore.updateOrderStatus(orderId, status)
-    await fetchOrder()
-    ElMessage.success('状态更新成功')
-  } catch (error) {
-    ElMessage.error('状态更新失败')
-  }
-}
-
-// 获取订单详情
-const fetchOrder = async () => {
-  try {
-    loading.value = true
-    order.value = await orderStore.fetchOrder(orderId)
-  } catch (error) {
-    ElMessage.error('获取订单详情失败')
-  } finally {
-    loading.value = false
-  }
-}
-
-// 初始化
-onMounted(() => {
-  fetchOrder()
 })
 </script>

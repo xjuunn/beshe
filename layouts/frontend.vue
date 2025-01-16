@@ -94,11 +94,10 @@
 </template>
 
 <script setup>
-const route = useRoute()
-const userStore = useUserStore()
+const {route} = useRoute()
 
 // 计算属性：是否已登录
-const isLoggedIn = computed(() => userStore.isLoggedIn)
+const isLoggedIn = computed(() => true)
 </script>
 
 <style scoped>

@@ -344,12 +344,6 @@ watchEffect(() => {
 </script>
 
 <style scoped>
-/* 确保侧边栏在大屏幕上始终可见 */
-/* @media (min-width: 1024px) {
-  .drawer-content {
-    padding-left: 20rem;
-  }
-} */
 
 /* 优化菜单样式 */
 .menu :where(li:not(.menu-title) > *:not(ul):not(details):not(.menu-title)) {

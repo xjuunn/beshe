@@ -15,7 +15,7 @@
           <div class="card-body">
             <h3 class="font-bold mb-4">商品分类</h3>
             <ul class="menu bg-base-100">
-              <li v-for="category in categories" :key="category.id">
+              <li v-for="item in 20" :key="item">
                 <a :class="{ 'active': selectedCategory === category.id }"
                    @click="selectedCategory = category.id">
                   {{ category.name }}
@@ -134,52 +134,5 @@ definePageMeta({
   layout: 'frontend'
 })
 
-const categories = ref([
-  { id: 1, name: '手机数码', count: 328 },
-  { id: 2, name: '电脑办公', count: 235 },
-  { id: 3, name: '家用电器', count: 147 },
-  { id: 4, name: '服装服饰', count: 892 },
-  { id: 5, name: '美妆护肤', count: 425 },
-  { id: 6, name: '运动户外', count: 233 },
-])
 
-const selectedCategory = ref(null)
-const priceRange = ref({ min: '', max: '' })
-const filters = ref({
-  inStock: false,
-  onSale: false
-})
-const sortBy = ref('default')
-const totalProducts = ref(2358)
-
-const products = ref([
-  {
-    id: 1,
-    name: '2024新款智能手机',
-    description: '全新一代处理器，超长续航，6400万像素超清摄像头',
-    price: 2999,
-    originalPrice: 3999,
-    image: 'https://picsum.photos/seed/phone1/300/200',
-    tag: '新品'
-  },
-  {
-    id: 2,
-    name: '无线蓝牙耳机',
-    description: '主动降噪，超长续航，高清音质，舒适佩戴',
-    price: 799,
-    originalPrice: 999,
-    image: 'https://picsum.photos/seed/headphone/300/200',
-    tag: '热销'
-  },
-  {
-    id: 3,
-    name: '智能手表',
-    description: '24小时心率监测，运动数据记录，来电提醒',
-    price: 599,
-    originalPrice: 799,
-    image: 'https://picsum.photos/seed/watch/300/200',
-    tag: '促销'
-  },
-  // ... 可以添加更多商品
-])
 </script> 

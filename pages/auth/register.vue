@@ -16,14 +16,14 @@
         </div>
 
         <!-- 注册表单 -->
-        <form @submit.prevent="handleRegister" class="space-y-6">
+        <form @submit.prevent="null" class="space-y-6">
           <!-- 用户名 -->
           <label class="form-control w-full">
             <div class="label">
               <span class="label-text">用户名</span>
               <span class="label-text-alt text-error">*</span>
             </div>
-            <input type="text" v-model="form.username" 
+            <input type="text" 
                    placeholder="请输入用户名" 
                    class="input input-bordered w-full h-12" />
           </label>
@@ -34,7 +34,7 @@
               <span class="label-text">设置密码</span>
               <span class="label-text-alt text-error">*</span>
             </div>
-            <input type="password" v-model="form.password" 
+            <input type="password"
                    placeholder="请设置登录密码" 
                    class="input input-bordered w-full h-12" />
             <div class="label">
@@ -50,14 +50,14 @@
               <span class="label-text">确认密码</span>
               <span class="label-text-alt text-error">*</span>
             </div>
-            <input type="password" v-model="form.confirmPassword" 
+            <input type="password"
                    placeholder="请再次输入密码" 
                    class="input input-bordered w-full h-12" />
           </label>
 
           <!-- 用户协议 -->
           <div class="flex items-start gap-3 pt-2">
-            <input type="checkbox" v-model="form.agreement" 
+            <input type="checkbox"
                    class="checkbox checkbox-sm checkbox-primary mt-1" />
             <span class="text-sm text-base-content/80">
               我已阅读并同意
@@ -68,17 +68,17 @@
           </div>
 
           <!-- 错误提示 -->
-          <div v-if="error" class="alert alert-error shadow-lg">
+          <div class="alert alert-error shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>{{ error }}</span>
+            <span>test</span>
           </div>
 
           <!-- 注册按钮 -->
           <button class="btn btn-primary w-full h-12" 
-                  :class="{ loading: loading }"
+                  :class="{ loading: false }"
                   type="submit"
-                  :disabled="loading">
-            {{ loading ? '注册中...' : '注册' }}
+                  :disabled="false">
+            {{ false ? '注册中...' : '注册' }}
           </button>
         </form>
 
@@ -95,63 +95,5 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
-const userStore = useUserStore()
-const router = useRouter()
-
-const form = ref({
-  username: '',
-  password: '',
-  confirmPassword: '',
-  agreement: false
-})
-
-const loading = ref(false)
-const error = ref('')
-
-const handleRegister = async () => {
-  // 表单验证
-  if (!form.value.username || !form.value.password || !form.value.confirmPassword) {
-    error.value = '请填写完整信息'
-    return
-  }
-
-  if (form.value.password !== form.value.confirmPassword) {
-    error.value = '两次输入的密码不一致'
-    return
-  }
-
-  if (!form.value.agreement) {
-    error.value = '请阅读并同意用户协议'
-    return
-  }
-
-  if (!/^[a-zA-Z0-9_]{4,16}$/.test(form.value.username)) {
-    error.value = '用户名只能包含字母、数字和下划线，长度4-16位'
-    return
-  }
-
-  if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(form.value.password)) {
-    error.value = '密码必须包含字母和数字，长度8-20位'
-    return
-  }
-
-  loading.value = true
-  error.value = ''
-
-  try {
-    await userStore.register({
-      username: form.value.username,
-      password: form.value.password
-    })
-    
-    router.push('/')
-  } catch (err: any) {
-    error.value = err.message || '注册失败'
-  } finally {
-    loading.value = false
-  }
-}
 </script>

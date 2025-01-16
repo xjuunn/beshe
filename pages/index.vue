@@ -78,29 +78,29 @@
 
         <!-- 商品网格 -->
         <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div v-for="product in products" 
-               :key="product.id" 
+          <div v-for="item in 20" 
+               :key="item" 
                class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow">
             <figure class="relative">
-              <img :src="product.image || 'https://picsum.photos/seed/1/800/600'" 
-                   :alt="product.name" 
+              <img :src="'https://picsum.photos/seed/1/800/600'" 
+                   :alt="item" 
                    class="h-[200px] w-full object-cover" />
-              <div v-if="product.stock <= 10" 
+              <div v-if="item <= 10" 
                    class="badge badge-error absolute top-2 right-2">
                 库存紧张
               </div>
             </figure>
             <div class="card-body">
-              <h2 class="card-title">{{ product.name }}</h2>
-              <p class="text-gray-600 line-clamp-2">{{ product.description }}</p>
+              <h2 class="card-title">{{ item }}</h2>
+              <p class="text-gray-600 line-clamp-2">{{ item }}</p>
               <div class="flex justify-between items-center mt-4">
                 <div>
-                  <span class="text-primary text-xl font-bold">¥{{ product.price }}</span>
+                  <span class="text-primary text-xl font-bold">¥{{ item }}</span>
                 </div>
                 <button class="btn btn-primary btn-sm" 
-                        :disabled="product.stock <= 0"
+                        :disabled="item <= 0"
                         @click="addToCart(product)">
-                  {{ product.stock > 0 ? '加入购物车' : '暂时缺货' }}
+                  {{ item > 0 ? '加入购物车' : '暂时缺货' }}
                 </button>
               </div>
             </div>
@@ -108,7 +108,7 @@
         </div>
 
         <!-- 空状态 -->
-        <div v-if="!loading && products.length === 0" 
+        <div v-if="!false && false === 0" 
              class="text-center py-12">
           <div class="text-4xl mb-4">😢</div>
           <p class="text-gray-500">暂无商品</p>
@@ -119,16 +119,11 @@
 </template>
 
 <script setup>
-import { useProductStore } from '~/stores/product'
 
 definePageMeta({
   layout: 'frontend'
 })
 
-const productStore = useProductStore()
-const currentTab = ref('全部')
-
-// 商品分类数据
 const categories = ref([
   { id: 1, name: '手机数码', emoji: '📱' },
   { id: 2, name: '电脑办公', emoji: '💻' },
@@ -138,27 +133,6 @@ const categories = ref([
   { id: 6, name: '运动户外', emoji: '⚽' }
 ])
 
-// 获取商品列表
-const { products, loading } = storeToRefs(productStore)
-
-// 监听标签变化
-watch(currentTab, async (newTab) => {
-  await loadProducts(newTab)
-})
-
-// 加载商品
-const loadProducts = async (tab = '全部') => {
-  const query = {
-    status: 'ACTIVE',
-    ...(tab !== '全部' && { category_id: categories.value.find(c => c.name === tab)?.id })
-  }
-  await productStore.fetchProducts(query)
-}
-
-// 页面加载时获取商品
-onMounted(async () => {
-  await loadProducts()
-})
 </script>
 
 <style scoped>

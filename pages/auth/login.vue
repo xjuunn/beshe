@@ -16,7 +16,7 @@
         </div>
 
         <!-- 登录表单 -->
-        <form @submit.prevent="handleLogin" class="space-y-6">
+        <form @submit.prevent="null" class="space-y-6">
           <!-- 用户名 -->
           <label class="form-control w-full">
             <div class="label">
@@ -28,7 +28,7 @@
                   <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                 </svg>
               </span>
-              <input type="text" v-model="form.username" 
+              <input type="text"
                      placeholder="请输入用户名" 
                      class="input input-bordered w-full h-12 pl-10 pr-4" />
             </div>
@@ -46,7 +46,7 @@
                   <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                 </svg>
               </span>
-              <input type="password" v-model="form.password" 
+              <input type="password"
                      placeholder="请输入密码" 
                      class="input input-bordered w-full h-12 pl-10 pr-4" />
             </div>
@@ -54,25 +54,25 @@
 
           <!-- 记住我 -->
           <div class="flex items-center gap-2">
-            <input type="checkbox" v-model="form.remember" 
+            <input type="checkbox" 
                    class="checkbox checkbox-sm checkbox-primary" />
             <span class="label-text">记住我</span>
           </div>
 
           <!-- 错误提示 -->
-          <div v-if="error" class="alert alert-error shadow-lg">
+          <div class="alert alert-error shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>{{ error }}</span>
+            <span>test</span>
           </div>
 
           <!-- 登录按钮 -->
           <button class="btn btn-primary w-full h-12" 
-                  :class="{ loading: loading }"
+                  :class="{ loading: false }"
                   type="submit"
-                  :disabled="loading">
-            {{ loading ? '登录中...' : '登录' }}
+                  :disabled="false">
+            {{ false ? '登录中...' : '登录' }}
           </button>
         </form>
 
@@ -111,76 +111,4 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const loading = ref(false)
-const error = ref('')
-
-// 表单数据
-const form = ref({
-  username: '',
-  password: '',
-  remember: false
-})
-
-// 登录处理
-const handleLogin = async () => {
-  // 表单验证
-  if (!form.value.username || !form.value.password) {
-    error.value = '请输入用户名和密码'
-    return
-  }
-
-  try {
-    loading.value = true
-    error.value = ''
-
-    // 调用登录接口
-    const response = await useFetch('/api/auth/login', {
-      method: 'POST',
-      body: {
-        username: form.value.username,
-        password: form.value.password
-      }
-    })
-
-    const responseData = response.data.value
-    
-    // 处理响应
-    if (responseData?.code === 200 && 'data' in responseData) {
-      // 保存token
-      const token = responseData.data.token
-      localStorage.setItem('token', token)
-      
-      // 如果选择记住我，保存用户名
-      if (form.value.remember) {
-        localStorage.setItem('rememberedUser', form.value.username)
-      } else {
-        localStorage.removeItem('rememberedUser')
-      }
-
-      // 跳转到首页
-      router.push('/')
-    } else {
-      error.value = responseData && typeof responseData === 'object' && 'message' in responseData 
-        ? (typeof responseData.message === 'string' ? responseData.message : '登录失败')
-        : '登录失败'
-    }
-  } catch (e: any) {
-    error.value = '登录失败，请稍后重试'
-  } finally {
-    loading.value = false
-  }
-}
-
-// 页面加载时检查是否有记住的用户
-onMounted(() => {
-  const rememberedUser = localStorage.getItem('rememberedUser')
-  if (rememberedUser) {
-    form.value.username = rememberedUser
-    form.value.remember = true
-  }
-})
 </script>
