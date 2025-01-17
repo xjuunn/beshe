@@ -49,5 +49,27 @@ export default defineNuxtConfig({
     public: {
 
     }
-  }
+  },
+  app: {
+    pageTransition: {
+      name: 'fade',
+      mode: 'out-in',
+    },
+    head: {
+      script: [
+        {
+          children: `
+            (function() {
+              var theme = localStorage.getItem('isDark');
+              if (theme === 'false') {
+                document.documentElement.setAttribute('data-theme', 'light');
+              } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+              }
+            })()
+          `
+        }
+      ],
+    }
+  },
 });
