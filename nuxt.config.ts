@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     server: {
       strictPort: true,
     },
+    resolve: {
+      alias: { 'echarts/lib/util/number': 'echarts/lib/util/number.js' },
+    },
     plugins: [
       tailwindcss(),
       Components({
@@ -44,6 +47,7 @@ export default defineNuxtConfig({
     'unplugin-icons/nuxt',
     '@vueuse/nuxt',
     '@pinia/nuxt',
+    'nuxt-echarts',
   ],
   runtimeConfig: {
     public: {
@@ -72,4 +76,18 @@ export default defineNuxtConfig({
       ],
     }
   },
+  echarts: {
+    ssr: true,
+    renderer: ['svg','canvas'],
+    charts: ['BarChart', 'MapChart'],
+    components: [
+      'DatasetComponent',
+      'GridComponent',
+      'TooltipComponent',
+      'ToolboxComponent',
+      'GeoComponent',
+      'VisualMapComponent',
+    ],
+  },
+  build: { transpile: ['echarts-liquidfill'] }
 });

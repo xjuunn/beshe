@@ -1,9 +1,7 @@
-import type { StorageValue, Storage } from "unstorage";
 
 export const useThemeStore = defineStore('theme', () => {
   let _isDark = ref(true);
   let _navBlur = ref(true);
-
   const isDark = computed(() => _isDark);
   const isNavBlur = computed(() => _navBlur);
   onBeforeMount(async () => {
@@ -44,5 +42,9 @@ export const useThemeStore = defineStore('theme', () => {
   };
 
 
-  return { isDark, isNavBlur, toggleTheme, setTheme, setNavBlur, setCustomTheme }
+  return {
+    isDark, isNavBlur, toggleTheme,
+    setTheme, setNavBlur, setCustomTheme
+  }
 })
+

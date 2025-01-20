@@ -6,7 +6,7 @@
       <input id="left-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
         <!-- 顶部导航 -->
-        <div class="navbar bg-base-200 z-50">
+        <div class="navbar bg-base-200">
           <label for="left-drawer" class="lg:hidden btn btn-ghost drawer-button">
             <Icon name="material-symbols-menu-rounded" size="20"></Icon>
           </label>
@@ -130,11 +130,11 @@
             </div>
           </div>
         </div>
-        <div class="min-h-[calc(100vh-64px)]">
+        <div class="h-[calc(100vh-64px)] overflow-auto scrollbar-thin">
           <slot></slot>
         </div>
       </div>
-      <div class="drawer-side">
+      <div class="drawer-side z-40">
         <label for="left-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
         <div class="bg-base-200 text-base-content min-h-full w-80 p-4">
           <aside class="sticky top-0 overflow-y-auto w-60 py-6 px-4 bg-base-200">
@@ -146,17 +146,17 @@
             <ul class="menu px-0">
               <li class="menu-title">可视化</li>
               <li>
-                <a>
+                <NuxtLink to="/admin">
                   <Icon name="mingcute-dashboard-fill" size="18"></Icon>
                   仪表盘
-                </a>
+                </NuxtLink>
               </li>
               <li class="menu-title">用户管理</li>
               <li>
-                <a>
+                <NuxtLink to="/admin/userlist">
                   <Icon name="mdi-users" size="18"></Icon>
                   用户列表
-                </a>
+                </NuxtLink>
               </li>
               <li>
                 <a>
@@ -199,10 +199,10 @@
               </li>
               <li class="menu-title">系统设置</li>
               <li>
-                <a>
+                <NuxtLink to="/admin/sysTheme">
                   <Icon name="icon-park-solid-theme" size="18"></Icon>
                   全局主题
-                </a>
+                </NuxtLink>
               </li>
             </ul>
           </aside>
