@@ -138,9 +138,8 @@
         <label for="left-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
         <div class="bg-base-200 text-base-content min-h-full w-80 p-4">
           <aside class="sticky top-0 overflow-y-auto w-60 py-6 px-4 bg-base-200">
-            <a class="btn btn-ghost">
-              <Icon name="noto-shopping-bags" size="25"></Icon>
-              <span class="ml-2 text-lg font-bold">校园百货后台</span>
+            <a class="btn btn-ghost relative">
+              <span class="ml-2 text-lg font-bold">校夕夕后台</span>
             </a>
 
             <ul class="menu px-0">
@@ -159,10 +158,10 @@
                 </NuxtLink>
               </li>
               <li>
-                <a>
+                <NuxtLink to="/admin/comments">
                   <Icon name="mdi-comments" size="18"></Icon>
                   评价反馈
-                </a>
+                </NuxtLink>
               </li>
 
               <li class="menu-title">商品管理</li>

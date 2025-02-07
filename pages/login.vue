@@ -17,16 +17,19 @@
         <div class="card-body items-center gap-5 mt-5 pb-5 border-t border-base-content/10">
           <label class="floating-label w-full max-w-xs">
             <span>用户名</span>
-            <input type="text" placeholder="" class="input input-bordered focus:outline-0" />
+            <input v-model="username" type="text" placeholder="" class="input input-bordered focus:outline-0" />
           </label>
           <label class="floating-label w-full max-w-xs">
             <span>密码</span>
-            <input type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
+            <input v-model="password" type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
           </label>
-          <div class="validator-hint text-error">用户名或密码错误</div>
+          <div class="validator-hint text-error">{{ log }}</div>
         </div>
         <div class="border-t border-base-content/10 flex p-7 pb-0 justify-center">
-          <button class="btn btn-outline border-base-content/30 hover:border-base-content min-w-[100px]" @click="btnLogin">登录</button>
+          <div class="loading" v-show="isloading"></div>
+          <button v-show="!isloading"
+            class="btn btn-outline border-base-content/30 hover:border-base-content min-w-[100px]"
+            @click="btnLogin">登录</button>
         </div>
         <div class="card-actions mb-3 mt-4 text-xs self-end pe-8">
           <span class="text-base-content/60">还没有账号？</span>
@@ -39,13 +42,23 @@
 
 <script lang="ts" setup>
 const { isDark, setNavBlur } = useThemeStore();
-const {login} = useUserStore();
+const { login } = useUserStore();
 setNavBlur(false);
 definePageMeta({
   layout: "frontend"
 })
-function btnLogin(){
-  login();
-  navigateTo('/');
+let isloading = ref(false);
+let username = ref('');
+let password = ref('');
+let log = ref('');
+async function btnLogin() {
+  isloading.value = true;
+  let data = await login(username.value, password.value);
+  isloading.value = false;
+  log.value = data.message
+  if(data.code == 200) {
+    navigateTo('/');
+  }
+
 }
 </script>

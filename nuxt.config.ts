@@ -17,6 +17,13 @@ export default defineNuxtConfig({
     envPrefix: ['VITE_', 'TAURI_'],
     server: {
       strictPort: true,
+      proxy: {
+        "/api": {
+          target: process.env.API_BASE_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
     },
     resolve: {
       alias: { 'echarts/lib/util/number': 'echarts/lib/util/number.js' },
@@ -51,7 +58,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-
+      apibaseurl:process.env.API_BASE_URL
     }
   },
   app: {
@@ -78,7 +85,7 @@ export default defineNuxtConfig({
   },
   echarts: {
     ssr: true,
-    renderer: ['svg','canvas'],
+    renderer: ['svg', 'canvas'],
     charts: ['BarChart', 'MapChart'],
     components: [
       'DatasetComponent',

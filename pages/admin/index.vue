@@ -2,15 +2,6 @@
   <div>
     <canvas ref="chartDom" id="main" width="600" height="400"></canvas>
     <button class="btn btn-primary" @click="test">Test</button>
-    <!-- <div class="toast" :style="`margin-bottom: ${15 + 46 + 10 + 46 + 10}px`">
-      <div class="alert alert-warning alert-horizontal">test</div>
-    </div>
-    <div class="toast" :style="`margin-bottom: ${15 + 46 + 10}px`">
-      <div class="alert alert-error alert-horizontal">test</div>
-    </div>
-    <div class="toast">
-      <div class="alert alert-warning alert-horizontal">test</div>
-    </div> -->
   </div>
 </template>
 
@@ -20,6 +11,7 @@ definePageMeta({
 })
 
 import * as echarts from 'echarts';
+
 type EChartsOption = echarts.EChartsOption;
 let chartDom = ref(null);
 onMounted(() => {
@@ -92,11 +84,9 @@ function initChart() {
   option && myChart.setOption(option);
 }
 
-function test() {
-  createToast('测试一下',{
-    type:'warning',
-    icon:'grommet-icons--test'
-  })
+async function test() {
+  const {data} = await useAxios().get('https://randomuser.me/api')
+  console.log(data);
 }
 
 

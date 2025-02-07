@@ -10,7 +10,7 @@ export default (content: string, options?: toastOption) => {
     type: 'success', position: ['bottom', 'right'], direction: 'horizontal', style: 'default',
     icon: '', size: 20, animate: {}
   }, options)
-  
+
   // alert
   alert.classList.add('alert');
   alert.classList.add('alert-' + options.type);

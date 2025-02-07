@@ -41,7 +41,7 @@
       </thead>
       <tbody>
         <!-- 行 -->
-        <tr v-for="(item, index) in userlist" :key="index">
+        <tr v-for="item in 20" :key="item">
           <td>
             <label>
               <input type="checkbox" class="checkbox" />
@@ -50,34 +50,31 @@
           <td>
             <div class="avatar">
               <div class="mask mask-squircle h-12 w-12">
-                <img :class="isloading ? '' : 'skeleton'" :src="User.getUserCover(item.avatar + '')" alt="头像" />
+                <img class="skeleton" :src="`https://picsum.photos/100/100?seed=` + item"
+                  alt="Avatar Tailwind CSS Component" />
               </div>
             </div>
           </td>
           <th>
-            <div class="font-bold">{{ item.username }}</div>
-            <div class="text-sm opacity-50">ID: {{ item.id }}</div>
+            <div class="font-bold">用户{{ item }}</div>
+            <div class="text-sm opacity-50">ID: {{ item }}</div>
           </th>
-          <td>{{ item.roleId == 1 ? '管理员' : '普通用户' }}</td>
-          <td>{{ item.email == '' ? '未设置' : item.email }}</td>
-          <td class="line-clamp-1">{{ item.address == '' ? '未设置' : item.address }}</td>
-          <td>{{ item.phone == '' ? '未绑定' : item.phone }}</td>
+          <td>普通用户</td>
+          <td>test@163.com</td>
+          <td class="line-clamp-1">中国村</td>
+          <td>123123123123</td>
           <td>
-            {{ item.createTime }}
+            2025-01-01
           </td>
           <td>
             <div class="join">
               <button class="btn btn-sm btn-primary">修改</button>
-              <button class="btn btn-sm btn-error" onclick="del_dialog.showModal()"
-                @click="btnDelete(item.id)">删除</button>
+              <button class="btn btn-sm btn-error" onclick="del_dialog.showModal()">删除</button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
-    <div v-show="isloading" class="w-full flex justify-center mt-10">
-      <div class="loading"></div>
-    </div>
     <div class="flex items-center justify-center pt-9 pb-20">
       <div class="join">
         <button class="join-item btn">1</button>
@@ -91,10 +88,10 @@
     <dialog id="del_dialog" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
         <h3 class="text-lg font-bold">删除用户</h3>
-        <p class="py-4">是否要删除id为 {{ delid }} 的用户</p>
+        <p class="py-4">是否要删除id为 1 的用户</p>
         <div class="modal-action">
           <button class="btn btn-ghost" onclick="del_dialog.close()">取消</button>
-          <button class="btn btn-error" onclick="del_dialog.close()" @click="doDelete">删除</button>
+          <button class="btn btn-error" onclick="del_dialog.close()" @click="createToast('删除成功',{icon:'ep--success-filled'})">删除</button>
         </div>
       </div>
       <form method="dialog" class="modal-backdrop">
@@ -108,37 +105,5 @@
 definePageMeta({
   layout: 'admin'
 })
-import * as User from '../../api/user';
-let userlist: Ref<User.UserDTO[]> = ref([]);
-let delid = ref(-1);
-let isloading = ref(true);
-onMounted(async () => {
-  await initList();
-})
-async function initList() {
-  isloading.value = true;
-  let { data } = await User.getUsers();
-  userlist.value = data.data;
-  isloading.value = false;
-}
-
-function btnDelete(id: number | string | undefined) {
-  if (id == undefined) return;
-  delid.value = Number(id);
-
-}
-
-async function doDelete() {
-  let { data } = await User.deleteUser(delid.value)
-  if (data.code == 200) {
-    createToast('删除成功', { icon: 'ep--success-filled', type: 'success', style: 'dash' })
-  } else {
-    createToast(data.message, { icon: 'icon-park-solid:error', type: 'error', style: 'soft' })
-  }
-  initList();
-}
-
-
-
 
 </script>

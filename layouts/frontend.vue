@@ -3,8 +3,10 @@
     <div class="navbar sticky top-0 z-50 gap-1" :class="isNavBlur ? 'backdrop-blur-2xl' : 'bg-base-200'">
       <div class="flex-1">
         <NuxtLink to="/" class="btn btn-ghost text-xl">
-          <Icon name="noto-shopping-bags"></Icon>
-          <span class="hidden sm:inline">校园百货</span>
+          <!-- <Icon name="noto-shopping-bags"></Icon> -->
+          <!-- <img src="/favicon.png" class=" h-full" /> -->
+          <div class="bg-[url('../public/favicon.png')] w-15 bg-cover bg-center h-full"></div>
+          <span class="hidden sm:inline">校夕夕</span>
         </NuxtLink>
       </div>
 
@@ -65,19 +67,17 @@
         <div class="dropdown dropdown-end">
           <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
             <div class="w-10 rounded-full">
-              <img alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              <img alt="头像" :src="avatar" />
             </div>
           </div>
           <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
             <li>
               <a class="flex" title="View profile">
-                <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                  class="w-8 rounded-full" />
+                <img alt="头像" :src="avatar" class="w-8 rounded-full" />
 
                 <div class="flex flex-col">
-                  <h3 class="font-bold">用户名</h3>
-                  <span class="text-xs text-accent">test@email.com</span>
+                  <h3 class="font-bold">{{ user.username }}</h3>
+                  <span class="text-xs text-accent">{{ user.email }}</span>
                 </div>
               </a>
             </li>
@@ -142,13 +142,14 @@
       <slot></slot>
     </div>
 
-    <footer class="flex flex-col sm:flex-row gap-8 justify-between p-10 bg-base-200">
+    <footer class="flex flex-col sm:flex-row gap-8 justify-between p-9 bg-base-200">
       <aside>
-        <p class="text-3xl flex items-center gap-2">
-          <Icon name="noto-shopping-bags"></Icon>
-          校园百货
-        </p>
-        <small>Copyright © 2024 - 校园百货</small>
+        <div class="text-3xl flex items-center gap-2">
+          <!-- <Icon name="noto-shopping-bags"></Icon> -->
+          <div class="w-28 h-16 bg-[url('/public/favicon.png')] bg-cover bg-center"></div>
+          校夕夕
+        </div>
+        <!-- <small class="text-xs">Copyright © 2025 - 校夕夕</small> -->
       </aside>
 
       <nav class="flex gap-4">
@@ -170,5 +171,5 @@
 </template>
 <script setup lang="ts">
 const { isDark, setTheme, isNavBlur } = useThemeStore();
-const { isLogin, logout, isAdmin } = useUserStore();
+const { isLogin, logout, isAdmin, avatar,user } = useUserStore();
 </script>

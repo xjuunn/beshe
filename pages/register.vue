@@ -16,21 +16,28 @@
         <div class="card-title self-center text-2xl mt-5">注 册</div>
         <div class="card-body items-center gap-5 mt-5 border-t pb-5 border-base-content/10">
           <label class="floating-label w-full max-w-xs">
+            <span>头像</span>
+            <input @change="selectFile" type="file"
+              class="file-input file-input-ghost active:bg-transparent focus:ring-0 focus:outline-0" />
+          </label>
+          <label class="floating-label w-full max-w-xs">
             <span>用户名</span>
-            <input type="text" placeholder="" class="input input-bordered focus:outline-0" />
+            <input v-model="username" type="text" placeholder="" class="input input-bordered focus:outline-0" />
           </label>
           <label class="floating-label w-full max-w-xs">
             <span>密码</span>
-            <input type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
+            <input v-model="password" type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
           </label>
           <label class="floating-label w-full max-w-xs">
             <span>确认密码</span>
-            <input type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
+            <input v-model="password2" type="password" placeholder="密码" class="input input-bordered focus:outline-0" />
           </label>
-          <div class="validator-hint text-error">两次密码输入不一致</div>
+          <div class="validator-hint text-error">{{ log }}</div>
         </div>
         <div class="border-t border-base-content/10 flex pt-7 pb-0 justify-center">
-          <button class="btn btn-outline border-base-content/30 hover:border-base-content min-w-[100px]">注册</button>
+          <div class="loading" v-show="isloading"></div>
+          <button @click="register" v-show="!isloading"
+            class="btn btn-outline  border-base-content/30 hover:border-base-content min-w-[100px]">注册</button>
         </div>
         <div class="card-actions mb-3 mt-4 text-xs self-end pe-8">
           <span class="text-base-content/60">有账号了？</span>
@@ -49,4 +56,59 @@ setNavBlur(false);
 definePageMeta({
   layout: "frontend"
 })
+import { register as register1 } from '../api/auth';
+let log: Ref<string> = ref('');
+let isloading: Ref<boolean> = ref(false);
+let tx: File | null = null;
+let username: Ref<string> = ref('');
+let password: Ref<string> = ref('');
+let password2: Ref<string> = ref('');
+
+
+function selectFile(e: Event) {
+  const input = e.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    tx = input.files[0];
+  }
+}
+
+async function register() {
+  if (tx === null) {
+    log.value = '请选择头像';
+    return;
+  }
+
+  if (username.value === '') {
+    log.value = "请输入用户名";
+    return;
+  }
+
+  if (username.value.length >= 20) {
+    log.value = "用户名过长";
+    return;
+  }
+
+  if (username.value.length >= 20) {
+    log.value = "用户名过长";
+    return;
+  }
+
+  if (password.value === '') {
+    log.value = "请输入密码"
+    return;
+  }
+
+  if (password.value !== password2.value) {
+    log.value = "两次输入的密码不一致"
+    return;
+  }
+  isloading.value = true;
+  let { data } = await register1(username.value, password.value, tx);
+  console.log(111,data);
+  isloading.value = false;
+  log.value = data.message;
+  if (data.code === 200) {
+    navigateTo('/login')
+  }
+}
 </script>
