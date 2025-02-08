@@ -60,6 +60,25 @@ export function updateAvatar(id: string | number, file: File) {
     });
 }
 
+
+export function getUsers2(value: userSearch = {}) {
+    if (value.pageNum == undefined) value.pageNum = 1;
+    if (value.pageSize == undefined) value.pageSize = 15;
+    return useAxios().get('/user/page', {
+        params: value
+    })
+
+}
+
+export type userSearch = {
+    pageNum?: number;
+    pageSize?: number;
+    username?: string;
+    phone?: string;
+    email?: string;
+    roleId?: number | string;
+}
+
 export type UserDTO = {
     id?: number;
     username?: string;

@@ -4,19 +4,19 @@
     <div class="p-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 md:grid-cols-4 gap-3 sticky left-0">
       <label class="floating-label">
         <span>用户名</span>
-        <input type="text" placeholder="用户名" class="input" />
+        <input v-model="searchValue.username" type="text" placeholder="用户名" class="input" />
       </label>
       <label class="floating-label">
         <span>邮箱</span>
-        <input type="text" placeholder="邮箱" class="input" />
+        <input v-model="searchValue.email" type="text" placeholder="邮箱" class="input" />
       </label>
       <label class="floating-label">
         <span>手机号</span>
-        <input type="text" placeholder="手机号" class="input" />
+        <input v-model="searchValue.phone" type="text" placeholder="手机号" class="input" />
       </label>
       <div class="join">
-        <button class="btn btn-ghost">重置</button>
-        <button class="btn btn-primary">搜索</button>
+        <button @click="btnReset" class="btn btn-ghost">重置</button>
+        <button @click="btnSearch" class="btn btn-primary">搜索</button>
       </div>
     </div>
     <!-- 列表 -->
@@ -41,7 +41,7 @@
       </thead>
       <tbody>
         <!-- 行 -->
-        <tr v-for="(item, index) in userlist" :key="index">
+        <tr v-show="!isloading" v-for="(item, index) in userlist" :key="item.id">
           <td>
             <label>
               <input type="checkbox" class="checkbox" />
@@ -80,14 +80,17 @@
     </div>
     <div class="flex items-center justify-center pt-9 pb-20">
       <div class="join">
-        <button class="join-item btn">1</button>
-        <button class="join-item btn">2</button>
-        <button class="join-item btn btn-disabled">...</button>
-        <button class="join-item btn">99</button>
-        <button class="join-item btn">100</button>
+        <!-- <button v-for="(item, index) in maxPageNum" v-show="index <= 6" :disabled="index == 5" class="join-item btn"
+          @click="searchValue.pageNum = item; initList();" :class="item == searchValue.pageNum ? 'btn-primary' : ''">{{
+            index != 5 ? (index ==
+              6 ? maxPageNum : item) : '...'
+          }}</button> -->
+        <button v-for="(item, index) in pageBtnList" class="join-item btn"
+          @click="searchValue.pageNum = item; initList();" :class="item == searchValue.pageNum ? 'btn-primary' : ''">{{
+            item }}</button>
+        <button class="join-item btn" @click="searchValue.pageNum = maxPageNum; initList()">最后</button>
       </div>
     </div>
-
     <dialog id="del_dialog" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
         <h3 class="text-lg font-bold">删除用户</h3>
@@ -112,20 +115,43 @@ import * as User from '../../api/user';
 let userlist: Ref<User.UserDTO[]> = ref([]);
 let delid = ref(-1);
 let isloading = ref(true);
+let searchValue: Ref<User.userSearch> = ref({ pageNum: 1, pageSize: 15 });
+let dataTotal = ref(15);
 onMounted(async () => {
   await initList();
 })
+
+let maxPageNum = computed(() => Math.ceil(dataTotal.value / (searchValue.value.pageSize ?? 15)))
+let pageBtnList = computed(() => {
+  let list = [];
+  for (let index = -3; index < 5; index++) {
+    list.push((searchValue.value.pageNum ?? 1) + index)
+  }
+  return list.filter(item => item > 0 && item <= maxPageNum.value);
+})
+
+function btnReset() {
+  searchValue.value = { pageNum: 1, pageSize: 15 };
+  initList();
+}
+
+function btnSearch() {
+  initList();
+}
+
 async function initList() {
   isloading.value = true;
-  let { data } = await User.getUsers();
-  userlist.value = data.data;
+  // let { data } = await User.getUsers();
+  let { data } = await User.getUsers2(searchValue.value);
+  userlist.value = data.data.records;
+  dataTotal.value = data.data.total
+
   isloading.value = false;
 }
 
 function btnDelete(id: number | string | undefined) {
   if (id == undefined) return;
   delid.value = Number(id);
-
 }
 
 async function doDelete() {
