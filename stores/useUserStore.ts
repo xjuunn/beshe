@@ -39,7 +39,7 @@ export const useUserStore = defineStore('user', () => {
     if (data.code == 200) {
       _isLogin.value = true;
       _user.value = data.data.user;
-      _avatar.value = apibaseurl + '/uploads/' + data.data.user.avatar;
+      _avatar.value = apibaseurl + '/uploads/user/' + data.data.user.avatar;
       if (data.data.user.roleId == 1) _isAdmin.value = true;
       _token.value = data.data.token;
       if (import.meta.client) {

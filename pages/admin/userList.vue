@@ -67,7 +67,7 @@
           </td>
           <td>
             <div class="join">
-              <button class="btn btn-sm btn-primary">修改</button>
+              <button class="btn btn-sm btn-primary" @click="navigateTo('/admin/userinfo/' + item.username)">修改</button>
               <button class="btn btn-sm btn-error" onclick="del_dialog.showModal()"
                 @click="btnDelete(item.id)">删除</button>
             </div>

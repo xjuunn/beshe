@@ -42,9 +42,23 @@ export function deleteUser(id: number) {
  * @param filename 文件名
  */
 export function getUserCover(filename: string) {
-    return useUserStore().apibaseurl + '/uploads/' + filename;
+    return useUserStore().apibaseurl + '/uploads/user/' + filename;
 }
 
+/**
+ * 更新用户头像
+ * @param id   用户id
+ * @param file 用户头像文件
+ */
+export function updateAvatar(id: string | number, file: File) {
+    let fromData = new FormData();
+    fromData.append('file', file);
+    return useAxios().post(`/user/${id}/uploadAvatar`, fromData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
 
 export type UserDTO = {
     id?: number;

@@ -1,6 +1,7 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols flex pt-10 justify-center">
-    <div class="w-96 p-10">
+    <div class="loading" v-show="isloading"></div>
+    <div class="w-96 p-10" v-show="!isloading">
       <div class="w-full text-center">
         <div
           class="w-40 h-40 border m-auto rounded-box flex items-center justify-center border-dashed border-[#ffffff2a] cursor-pointer overflow-hidden"
@@ -32,6 +33,10 @@
         <span>手机号</span>
         <input v-model="userinfo.phone" type="text" placeholder="Your name" class="input input-md" />
       </label>
+      <div class="text-center mt-4 flex justify-between">
+        <button class="w-32 btn btn-outline btn-info" @click="navigateTo('/admin/userlist')">取消</button>
+        <button class="w-32 btn btn-success" @click="btnUpdate">修改</button>
+      </div>
     </div>
   </div>
 </template>
@@ -51,18 +56,14 @@ let zropzone = ref();
 let isAvatarOver: Ref<boolean> = ref(false);
 onMounted(async () => {
   username.value = useRoute().params.name + '';
-  // await getUserInfo();
+  await getUserInfo();
 
   let { isOverDropZone } = useDropZone(zropzone, {
     dataTypes: ['image/jpeg', 'image/png', 'image/webp'],
     multiple: false,
     onDrop,
   })
-  watch(isOverDropZone, value => {
-    isAvatarOver.value = value;
-
-  })
-
+  watch(isOverDropZone, value => isAvatarOver.value = value)
 })
 
 function btnInputAvatar() {
@@ -70,16 +71,10 @@ function btnInputAvatar() {
 }
 function avatarChange(e: Event) {
   let target = e.target as HTMLInputElement;
-  if (target.files && target.files.length > 0) {
-    avatarFile.value = target.files[0];
-  }
+  if (target.files && target.files.length > 0) avatarFile.value = target.files[0];
 }
 function onDrop(files: File[] | null) {
-  if (files && files.length > 0) {
-    avatarFile.value = files[0];
-
-  }
-
+  if (files && files.length > 0) avatarFile.value = files[0];
 }
 
 
@@ -91,7 +86,28 @@ async function getUserInfo() {
   isloading.value = true;
   let { data } = await User.getUserInfo(username.value)
   userinfo.value = data.data;
+  avatarurl.value = User.getUserCover(userinfo.value.avatar + '')
   isloading.value = false;
+}
+async function btnUpdate() {
+  isloading.value = true;
+
+  if (userinfo.value.id && avatarFile.value) {
+    let { data: data2 } = await User.updateAvatar(userinfo.value.id, avatarFile.value);
+    if (data2.code != 200) {
+      createToast(data2.message, {
+        style: 'dash', icon: 'icon-park-solid:error', type: 'error'
+      })
+    }
+  }
+  let { data } = await User.updateUser(userinfo.value)
+  isloading.value = false;
+  createToast(data.message, {
+    style: 'dash', icon: 'mdi:success-bold', type: 'success'
+  })
+  if (data.code == 200) navigateTo('/admin/userlist');
+
+
 }
 
 </script>
