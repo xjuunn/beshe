@@ -76,8 +76,8 @@
                 <img alt="头像" :src="avatar" class="w-8 rounded-full" />
 
                 <div class="flex flex-col">
-                  <h3 class="font-bold">{{ user.username }}</h3>
-                  <span class="text-xs text-accent">{{ user.email }}</span>
+                  <h3 class="font-bold">{{ user?.username }}</h3>
+                  <span class="text-xs text-accent">{{ user?.email }}</span>
                 </div>
               </a>
             </li>
@@ -171,5 +171,5 @@
 </template>
 <script setup lang="ts">
 const { isDark, setTheme, isNavBlur } = useThemeStore();
-const { isLogin, logout, isAdmin, avatar,user } = useUserStore();
+const { isLogin, logout, isAdmin, avatar, user } = useUserStore();
 </script>

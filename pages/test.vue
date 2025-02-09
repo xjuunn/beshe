@@ -28,8 +28,8 @@ let info = ref('');
 function onDrop(files: File[] | null) {
   if (files) {
     imgurl.value = URL.createObjectURL(files[0]);
-    if (productdata.covers === undefined) productdata.covers = [];
-    productdata.covers?.push(files[0]);
+    if (productdata.cover === undefined) productdata.cover = [];
+    productdata.cover?.push(files[0]);
   }
 }
 onMounted(() => {
@@ -48,7 +48,7 @@ async function send() {
   console.log(productdata);
   let { data } = await Product.addProduct(productdata);
   console.log(data);
-  productdata.covers = [];
+  productdata.cover = [];
 
 
 }

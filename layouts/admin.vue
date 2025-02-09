@@ -64,19 +64,17 @@
             <div class="ml-2 dropdown dropdown-end">
               <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
-                  <img alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                  <img alt="头像" :src="avatar" />
                 </div>
               </div>
               <ul tabindex="0" class="menu dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li>
                   <a class="flex" title="View profile">
-                    <img alt="Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      class="w-8 rounded-full" />
+                    <img alt="头像" :src="avatar" class="w-8 rounded-full" />
 
                     <div class="flex flex-col">
-                      <h3 class="font-bold">用户名</h3>
-                      <span class="text-xs text-accent">test@email.com</span>
+                      <h3 class="font-bold">{{ user.username }}</h3>
+                      <span class="text-xs text-accent">{{ user.email }}</span>
                     </div>
                   </a>
                 </li>
@@ -166,16 +164,16 @@
 
               <li class="menu-title">商品管理</li>
               <li>
-                <a>
+                <NuxtLink to="/admin/products">
                   <Icon name="lsicon-goods-filled" size="18"></Icon>
                   商品列表
-                </a>
+                </NuxtLink>
               </li>
               <li>
-                <a>
+                <NuxtLink to="/admin/category">
                   <Icon name="mingcute-classify-2-fill" size="18"></Icon>
                   商品分类
-                </a>
+                </NuxtLink>
               </li>
               <li>
                 <a>
@@ -211,6 +209,6 @@
   </div>
 </template>
 <script setup lang="ts">
-const { isLogin, isAdmin, logout } = useUserStore();
 const { isDark, setTheme } = useThemeStore();
+const { isLogin, logout, isAdmin, avatar, user } = useUserStore();
 </script>
