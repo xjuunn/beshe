@@ -183,10 +183,10 @@
               </li>
               <li class="menu-title">订单管理</li>
               <li>
-                <a>
+                <NuxtLink to="/admin/order">
                   <Icon name="mingcute-truck-fill" size="18"></Icon>
                   订单列表
-                </a>
+                </NuxtLink>
               </li>
               <li>
                 <a>
