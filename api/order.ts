@@ -21,9 +21,9 @@ export type OrderInfo = {
 export enum OrderStatus {
     "待付款" = 0,
     "已付款" = 1,
-    "已发货" = 2,
-    "已送达" = 3,
-    "已取件" = 4,
+    "申请退款" = 2,
+    "申请退货" = 3,
+    "已退货" = 4,
     "已取消" = 5,
     "已退款" = 6,
 }
@@ -31,9 +31,9 @@ export enum OrderStatus {
 export let OrderStatusArr = [
     "待付款",
     "已付款",
-    "已发货",
-    "已送达",
-    "已取件",
+    "申请退款",
+    "申请退货",
+    "已退货",
     "已取消",
     "已退款",
 ]
