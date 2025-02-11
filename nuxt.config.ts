@@ -18,10 +18,10 @@ export default defineNuxtConfig({
     server: {
       strictPort: true,
       proxy: {
-        "/api": {
+        "/serverapi": {
           target: process.env.API_BASE_URL,
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '')
+          rewrite: (path) => path.replace(/^\/serverapi/, '')
         }
       }
     },
