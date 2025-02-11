@@ -48,8 +48,8 @@ definePageMeta({
   layout: "frontend"
 })
 let isloading = ref(false);
-let username = ref('');
-let password = ref('');
+let username = ref('admin');
+let password = ref('123123');
 let log = ref('');
 async function btnLogin() {
   isloading.value = true;
