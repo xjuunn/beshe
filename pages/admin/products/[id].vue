@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div class="p-4 mb-20">
     <div class="flex flex-col items-center w-full mt-5" v-show="!isloading">
       <div class="h-[300px] rounded-2xl overflow-hidden relative">
         <img class="h-full " :src="coverurl" alt="图片">
@@ -82,6 +82,9 @@ async function initData() {
 async function btnUpdate() {
   let { data } = await Product.updateProduct(id, productInfo.value)
   createToast(data.message)
+  if (data.code == 200) {
+    navigateTo('/admin/products')
+  }
 }
 
 function changeCover(name: string) {

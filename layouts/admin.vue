@@ -156,7 +156,7 @@
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/admin/comments">
+                <NuxtLink to="/admin/review">
                   <Icon name="mdi-comments" size="18"></Icon>
                   评价反馈
                 </NuxtLink>
