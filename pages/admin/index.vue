@@ -85,8 +85,8 @@ function initChart() {
 }
 
 async function test() {
-  const {data} = await useAxios().get('https://randomuser.me/api')
-  console.log(data);
+
+
 }
 
 

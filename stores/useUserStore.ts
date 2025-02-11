@@ -29,7 +29,7 @@ export const useUserStore = defineStore('user', () => {
         _token.value = tokenStorage;
         _avatar.value = localStorage.getItem('avatar') + '';
         _user.value = JSON.parse(localStorage.getItem('user') + '');
-        if (_user.value.roleId === 1) _isAdmin.value = true;
+        if (_user.value?.roleId === 1) _isAdmin.value = true;
       }
     }
   })
@@ -40,7 +40,7 @@ export const useUserStore = defineStore('user', () => {
       _isLogin.value = true;
       _user.value = data.data.user;
       _avatar.value = apibaseurl + '/uploads/user/' + data.data.user.avatar;
-      if (data.data.user.roleId == 1) _isAdmin.value = true;
+      if (data.data.user?.roleId == 1) _isAdmin.value = true;
       _token.value = data.data.token;
       if (import.meta.client) {
         localStorage.setItem('token', _token.value);
@@ -48,6 +48,7 @@ export const useUserStore = defineStore('user', () => {
         localStorage.setItem('user', JSON.stringify(data.data.user));
       }
     }
+    refreshAxios();
     return data;
   }
 

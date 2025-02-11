@@ -56,7 +56,7 @@ async function btnLogin() {
   let data = await login(username.value, password.value);
   isloading.value = false;
   log.value = data.message
-  if(data.code == 200) {
+  if (data.code == 200) {
     navigateTo('/');
   }
 
