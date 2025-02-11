@@ -130,6 +130,13 @@ export function updateProduct(id: number | string, product: ProductDTO) {
     })
 }
 
+/**
+ * 低库存商品
+ */
+export function lowInventory() {
+    return useAxios().get('/api/products/low-stock');
+}
+
 export type ProductDTO = {
     /**商品名 */
     name?: string;

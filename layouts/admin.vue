@@ -176,10 +176,10 @@
                 </NuxtLink>
               </li>
               <li>
-                <a>
+                <NuxtLink to="/admin/inventory">
                   <Icon name="ic-baseline-inventory" size="18"></Icon>
-                  库存管理
-                </a>
+                  库存警告
+                </NuxtLink>
               </li>
               <li class="menu-title">订单管理</li>
               <li>
