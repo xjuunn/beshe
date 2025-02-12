@@ -212,7 +212,6 @@ let pageNumList = computed(() => {
 //#endregion
 
 async function btnAddLimit() {
-  console.log(updateValue.value, updatelimitQuantity.value, updatelimitTimeframe.value);
   let id = updateValue.value?.id;
   if (id == undefined) {
     return;
