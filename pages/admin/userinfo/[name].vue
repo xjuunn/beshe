@@ -1,5 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols flex pt-10 justify-center">
+    <title>用户信息</title>
     <div class="loading" v-show="isloading"></div>
     <div class="w-96 p-10" v-show="!isloading">
       <div class="w-full text-center">
@@ -46,6 +47,11 @@ import * as User from '../../../api/user';
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '用户列表', path: '/admin/userList'},
+  {name: '用户详情', path: '/admin/userinfo'},
+]);
 let username = ref('');
 let userinfo: Ref<User.UserDTO> = ref({});
 let isloading = ref(true);

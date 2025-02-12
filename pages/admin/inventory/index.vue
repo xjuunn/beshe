@@ -1,5 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols">
+    <title>库存警告</title>
     <!-- 列表 -->
     <table class="table table-pin-rows table-zebra z-1">
       <!-- 表头 -->
@@ -77,6 +78,10 @@ import * as Product from '../../../api/products';
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '库存预警', path: '/admin/inventory'}
+]);
 let isloading = ref(true);
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let listtotal = ref(15);

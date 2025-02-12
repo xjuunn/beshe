@@ -1,5 +1,6 @@
 <template>
   <div>
+    <title>仪表盘</title>
     <canvas ref="chartDom" id="main" width="600" height="400"></canvas>
     <button class="btn btn-primary" @click="test">Test</button>
   </div>

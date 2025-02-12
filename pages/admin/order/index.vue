@@ -1,5 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols">
+    <title>订单列表</title>
     <table class="table table-pin-rows table-sm table-zebra z-1" v-show="!isloading">
       <!-- 表头 -->
       <thead>
@@ -133,6 +134,10 @@
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '订单列表', path: '/admin/order'}
+]);
 import * as Order from '../../../api/order'
 import * as Product from '../../../api/products'
 import * as User from '../../../api/user'

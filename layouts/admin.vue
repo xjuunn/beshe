@@ -14,6 +14,8 @@
             <Icon name="mingcute-back-fill"></Icon>
             返回前台
           </NuxtLink>
+          <Breadcrumbs :items="[{ name: '后台', path: '/admin' },{ name: '用户管理', path: '/admin/userlist' }]">
+          </Breadcrumbs>
           <div class="flex justify-end w-full gap-2 items-center">
             <!-- 日志统计 -->
             <button class="btn btn-ghost btn-sm">
@@ -211,4 +213,5 @@
 <script setup lang="ts">
 const { isDark, setTheme } = useThemeStore();
 const { isLogin, logout, isAdmin, avatar, user } = useUserStore();
+import Breadcrumbs from '../components/Breadcrumbs';
 </script>

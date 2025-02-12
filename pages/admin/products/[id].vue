@@ -1,5 +1,6 @@
 <template>
   <div class="p-4 mb-20">
+    <title>商品详情</title>
     <div class="flex flex-col items-center w-full mt-5" v-show="!isloading">
       <div class="h-[300px] rounded-2xl overflow-hidden relative">
         <img class="h-full " :src="coverurl" alt="图片">
@@ -61,6 +62,11 @@
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '商品列表', path: '/admin/products'},
+  {name: '商品详情'},
+]);
 import * as Product from '../../../api/products'
 let id: number = Number(useRoute().params.id);
 let productInfo: Ref<Product.ProductDTO> = ref({})

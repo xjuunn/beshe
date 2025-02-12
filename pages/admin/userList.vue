@@ -1,5 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols">
+    <title>用户列表</title>
     <!-- 搜索 -->
     <div class="p-7 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 md:grid-cols-4 gap-3 sticky left-0">
       <label class="floating-label">
@@ -111,6 +112,10 @@
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '用户列表', path: '/admin/userList'},
+]);
 import * as User from '../../api/user';
 let userlist: Ref<User.UserDTO[]> = ref([]);
 let delid = ref(-1);

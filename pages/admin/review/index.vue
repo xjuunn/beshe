@@ -1,5 +1,6 @@
 <template>
   <div class="overflow-x-auto scrollbar-hidden h-[calc(100vh-64px)] table-pin-cols">
+    <title>评价反馈</title>
     <h2 v-show="userId || productId" class="text-2xl font-bold m-10 ml-5">
       <div v-show="userId">用户ID: {{ userId }} 的评论</div>
       <div v-show="productId">商品ID: {{ productId }}的评论</div>
@@ -93,6 +94,10 @@
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '评价反馈', path: '/admin/review'}
+]);
 import * as Review from '../../../api/reviews'
 import * as Product from '../../../api/products'
 let { userId, productId } = useRoute().query

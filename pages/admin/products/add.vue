@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center w-full mt-20 gap-4">
+    <title>添加商品</title>
     <div ref="dropzone"
       class="w-80 h-52 rounded-2xl p-4 border flex items-center justify-center border-dashed cursor-pointer overflow-hidden"
       @click="btnFileInput">
@@ -46,6 +47,11 @@
 definePageMeta({
   layout: 'admin'
 })
+useBreadcrumbsStore().setBreadcrumbs([
+  {name: '仪表盘', path: '/admin'},
+  {name: '商品列表', path: '/admin/products'},
+  {name: '添加商品'},
+]);
 import * as Product from '../../../api/products';
 import { useDropZone } from '@vueuse/core'
 let dropzone = ref<HTMLElement>();
