@@ -32,7 +32,7 @@
           <td>价格</td>
           <td>库存</td>
           <td>更新时间</td>
-          <td class="min-w-[120px]">操作</td>
+          <td class="min-w-[220px]">操作</td>
         </tr>
       </thead>
       <tbody>
@@ -62,9 +62,12 @@
           <td>{{ item.updateTime }}</td>
           <td>
             <div class="join">
-              <button class="btn btn-sm btn-primary" @click="navigateTo('/admin/products/' + item.id)">修改</button>
-              <button class="btn btn-sm btn-error" onclick="del_dialog.showModal()"
+              <button class="btn btn-sm btn-primary join-item"
+                @click="navigateTo('/admin/products/' + item.id)">修改</button>
+              <button class="btn btn-sm btn-error join-item" onclick="del_dialog.showModal()"
                 @click="deleteId = Number(item.id)">删除</button>
+              <button class="btn btn-accent btn-sm join-item"
+                @click="isShowUpdateModal = true; updatelimitQuantity = 0; updatelimitTimeframe = 'daily'; updateValue = item">添加限购</button>
             </div>
           </td>
         </tr>
@@ -92,24 +95,80 @@
         <button>close</button>
       </form>
     </dialog>
+
+    <ModalVue title="修改限购信息" v-model:show="isShowUpdateModal">
+      <template #body>
+        <div class="p-4">
+          <div class="text-sm opacity-80 flex justify-between">
+            <span>
+              商品ID: &nbsp;&nbsp;{{ updateValue?.id }}
+            </span>
+          </div>
+          <div class="mt-3">
+            <img :src="Product.getProductCover(updateValue?.cover + '')" alt="商品图片">
+            商品名称: {{ updateValue?.name }}
+            <p class="mt-3">
+              商品信息: <span class="text-sm opacity-80 ml-3">
+                {{ updateValue?.info }}
+              </span>
+            </p>
+            <div class="mt-3 flex justify-between text-sm">
+              <span>价格: {{ updateValue?.price }}</span>
+              <span>型号: {{ updateValue?.model }}</span>
+            </div>
+          </div>
+          <div class="divider"> 限购信息 </div>
+          <div class="p-2 flex gap-3">
+            <div class="dropdown">
+              <div tabindex="0" role="button" class="btn"
+                :class="{ 'bg-primary': updatelimitTimeframe == 'daily', 'bg-accent': updatelimitTimeframe == 'monthly', 'bg-ghost': updatelimitTimeframe == 'daily' }">
+                {{ updatelimitTimeframe == 'daily' ? '当日限购' : updatelimitTimeframe == 'monthly' ? '当月限购' :
+                  '保留设置' }}
+              </div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                <li><a @click="updatelimitTimeframe = 'daily'">当日限购</a></li>
+                <li><a @click="updatelimitTimeframe = 'monthly'">当月限购</a></li>
+              </ul>
+            </div>
+            <div class="floating-label">
+              <span>限购数量</span>
+              <input v-model="updatelimitQuantity" class="input input-primary" type="number" placeholder="限购数量">
+            </div>
+          </div>
+
+        </div>
+      </template>
+      <template #bottom>
+        <div class="join">
+          <button class="btn join-item btn-ghost btn-md" @click="isShowUpdateModal = false;">取消</button>
+          <button class="btn join-item btn-primary btn-md" @click="isShowUpdateModal = false; btnAddLimit()">修改</button>
+        </div>
+      </template>
+    </ModalVue>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import * as Product from '../../../api/products';
+import * as Limit from '../../../api/limitProduct'
 //#region 主体
 definePageMeta({
   layout: 'admin'
 })
 useBreadcrumbsStore().setBreadcrumbs([
-  {name: '仪表盘', path: '/admin'},
-  {name: '商品列表', path: '/admin/products'}
+  { name: '仪表盘', path: '/admin' },
+  { name: '商品列表', path: '/admin/products' }
 ]);
 let isloading = ref(true);
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let listtotal = ref(15);
 let searchValue: Ref<Product.SearchProduct> = ref({ pageNum: 1, pageSize: 15 });
 let deleteId = ref(-1);
+let updatelimitQuantity = ref(0);
+let updatelimitTimeframe: Ref<"monthly" | "daily"> = ref("daily");
+let isShowUpdateModal = ref(false);
+let updateValue: Ref<Product.ProdoctDTO2 | undefined> = ref()
 onMounted(async () => {
   initList();
 })
@@ -152,5 +211,20 @@ let pageNumList = computed(() => {
 
 //#endregion
 
+async function btnAddLimit() {
+  console.log(updateValue.value, updatelimitQuantity.value, updatelimitTimeframe.value);
+  let id = updateValue.value?.id;
+  if (id == undefined) {
+    return;
+  }
+  let { data } = await Limit.add(id, updatelimitQuantity.value, updatelimitTimeframe.value)
+  if (data.code == 200) {
+    createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
+    initList();
+  } else {
+    createToast(data.message, { type: 'error', style: 'soft', icon: 'mdi:error' })
+  }
+
+}
 
 </script>

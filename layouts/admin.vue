@@ -178,6 +178,12 @@
                 </NuxtLink>
               </li>
               <li>
+                <NuxtLink to="/admin/limit">
+                  <Icon name="mingcute:time-fill" size="18"></Icon>
+                  限购管理
+                </NuxtLink>
+              </li>
+              <li>
                 <NuxtLink to="/admin/inventory">
                   <Icon name="ic-baseline-inventory" size="18"></Icon>
                   库存警告
