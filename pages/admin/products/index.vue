@@ -76,12 +76,20 @@
     <div v-show="isloading" class="w-full text-center mt-10">
       <div class="loading"></div>
     </div>
-    <div class="flex items-center justify-center pt-9 pb-20">
+
+    <!-- <div class="flex items-center justify-center pt-9 pb-20">
       <div class="join">
         <button v-for="(item, index) in pageNumList" :key="item" @click="searchValue.pageNum = item; initList();"
           class="join-item btn" :class="item == searchValue.pageNum ? 'btn-primary' : ''">{{ item }}</button>
       </div>
+    </div> -->
+
+    <div class="text-center mt-10 mb-20">
+      <PaginationButton :current-page="searchValue.pageNum" :total-pages="Math.ceil(listtotal / searchValue.pageSize)"
+        @update:current-page="(e: number) => { searchValue.pageNum = e; initList() }">
+      </PaginationButton>
     </div>
+
     <dialog id="del_dialog" class="modal modal-bottom sm:modal-middle">
       <div class="modal-box">
         <h3 class="text-lg font-bold">删除用户</h3>
@@ -141,7 +149,7 @@
       <template #bottom>
         <div class="join">
           <button class="btn join-item btn-ghost btn-md" @click="isShowUpdateModal = false;">取消</button>
-          <button class="btn join-item btn-primary btn-md" @click="isShowUpdateModal = false; btnAddLimit()">修改</button>
+          <button class="btn join-item btn-primary btn-md" @click="isShowUpdateModal = false; btnAddLimit()">添加</button>
         </div>
       </template>
     </ModalVue>

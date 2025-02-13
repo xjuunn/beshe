@@ -67,7 +67,7 @@ export function addProduct(product: ProductDTO) {
     formdata.append('price', product.price + '');
 
     product.cover?.forEach((item, index) => {
-        console.log("遍历：", item, index);
+        // console.log("遍历：", item, index);
         formdata.append(`files`, item);
     })
     return useAxios().post('/api/products/add', formdata, {
