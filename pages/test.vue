@@ -1,56 +1,38 @@
 <template>
-  <div class="flex flex-col items-center justify-center w-full h-screen gap-4">
-    <div ref="dropzone" class="w-80 h-44 rounded-2xl p-4 border flex items-center justify-center border-dashed">
-      <img v-show="imgurl" :src="imgurl" alt="img">
-      <span v-show="imgurl === ''">图片</span>
+  <div class="min-h-[calc(100vh-204px)] pe-4 pl-4">
+    <div
+      class="lg:pl-10 lg:pe-10 2xl:pl-16 2xl:pe-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+      <div v-for="(item, index) in listdata" :key="item.id">
+        <ProductCard :data="item"></ProductCard>
+      </div>
     </div>
-    <input v-model="name" type="text" class="input input-info w-80" placeholder="商品名称">
-    <input v-model="info" type="text" class="input input-info w-80" placeholder="商品信息"></input>
-    <button class="btn btn-primary" @click="send">上传</button>
+    <div class="w-full text-center mt-10 mb-20">
+      <PaginationButton :current-page="searchValue.pageNum" :total-pages="Math.ceil(listtotal / searchValue.pageSize)"
+        @update:current-page="(n: number) => { searchValue.pageNum = n; initList() }"></PaginationButton>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  layout: 'frontend'
+})
 import * as Product from '../api/products';
-import { useDropZone } from '@vueuse/core'
-let dropzone = ref<HTMLElement>();
-let imgurl = ref('');
-let productdata: Product.ProductDTO = {
-  category: 110,
-  inventory: 3000,
-  model: '',
-  price: 2.0,
-  name: '',
-  info: ''
-};
-let name = ref('');
-let info = ref('');
-function onDrop(files: File[] | null) {
-  if (files) {
-    imgurl.value = URL.createObjectURL(files[0]);
-    if (productdata.cover === undefined) productdata.cover = [];
-    productdata.cover?.push(files[0]);
-  }
-}
+let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
+let searchValue: Ref<Product.SearchProduct> = ref({
+  pageNum: 1, pageSize: 15
+});
+let listtotal: Ref<number> = ref(searchValue.value.pageSize);
+let isloading = ref(true);
 onMounted(() => {
-  const { isOverDropZone } = useDropZone(dropzone, {
-    onDrop,
-    dataTypes: ['image/jpeg', 'image/png', 'image/webp'],
-    multiple: true,
-    preventDefaultForUnhandled: false,
-  });
-
+  initList();
 })
 
-async function send() {
-  productdata.name = name.value;
-  productdata.info = info.value;
-  console.log(productdata);
-  let { data } = await Product.addProduct(productdata);
-  console.log(data);
-  productdata.cover = [];
-
-
+async function initList() {
+  isloading.value = true;
+  let { data } = await Product.getProducts2(searchValue.value)
+  listtotal.value = data.data.total;
+  listdata.value = data.data.records;
+  isloading.value = false;
 }
-
 </script>
