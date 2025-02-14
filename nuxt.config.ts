@@ -3,7 +3,13 @@ import IconsResolver from 'unplugin-icons/resolver';
 import Components from 'unplugin-vue-components/vite';
 import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
-  devtools: { enabled: false },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true
+    }
+  },
   ssr: true,
   imports: {
     dirs: []

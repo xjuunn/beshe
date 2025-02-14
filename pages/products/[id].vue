@@ -29,7 +29,15 @@
           <div class="flex mt-5 gap-4 items-center">
             <div class="flex-1">价格：<span class="text-xl font-semibold text-primary">{{ detailData?.price }}元</span>
             </div>
-
+            <div class="join">
+              <button @click="quantity++" class="btn join-item btn-accent btn-sm">
+                <Icon name="mingcute:up-fill" size="1.2rem"></Icon>
+              </button>
+              <div class="join-item btn btn-accent btn-sm">{{ quantity }}</div>
+              <button @click="quantity <= 1 ? quantity : quantity--" class="btn join-item btn-sm btn-accent">
+                <Icon name="mingcute:down-fill" size="1.2rem"></Icon>
+              </button>
+            </div>
             <button class="btn btn-primary" @click="btnAddCart">加入购物车</button>
           </div>
         </div>
@@ -119,7 +127,7 @@ async function btnAddCart() {
   let { data } = await addCart({
     userId: user.value.id,
     productId: Number(detailData.value?.id),
-    quantity: quantity.value
+    quantity: quantity.value,
   })
   if (data.code == 200) createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
   else createToast(data.message, { type: 'error', style: 'soft', icon: 'mdi:error' })

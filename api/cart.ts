@@ -21,9 +21,7 @@ export function add(cart: CartDTO) {
  * @param quantity 数量
  */
 export function updateQuantity(id: string | number, quantity: number) {
-    let formData = new FormData();
-    formData.append('quantity', quantity + '');
-    return useAxios().put('/api/cart/' + id, formData);
+    return useAxios().put(`/api/cart/${id}?quantity=${quantity}`);
 }
 
 /**
@@ -35,7 +33,20 @@ export function del(id: string | number) {
 }
 
 export type CartDTO = {
+    id?: number;
     productId: number;
     quantity: number;
     userId: number;
+    products?: {
+        id: number;
+        name: string;
+        model: string;
+        info: string;
+        price: number;
+        category: string;
+        cover: string;
+        inventory: number;
+        createTime: string;
+        updateTime: string;
+    },
 }
