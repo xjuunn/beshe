@@ -4,9 +4,9 @@
       <h3 class="text-2xl font-semibold">购物车</h3>
     </div>
     <div v-for="(item, index) in listdata" :key="item.id"
-      class="card sm:card-side w-full max-w-[1000px] shadow-lg rounded-lg p-3 mx-auto bg-base-300 mb-5 scrollreveal-item">
+      class="card sm:card-side h-full flex w-full max-w-[1000px] shadow-lg rounded-lg p-3 mx-auto bg-base-300 mb-5 scrollreveal-item">
       <div
-        class="h-30 sm:h-inherit min-w-[130px] rounded-md bg-cover bg-center overflow-hidden flex items-center justify-center">
+        class="self-center h-30 sm:h-inherit min-w-[130px] rounded-md bg-cover bg-center overflow-hidden flex items-center justify-center">
         <img class="h-full" :src="Product.getProductCover((item.products?.cover + '').split(',')[0])" alt="图片">
       </div>
       <div class="card-body p-0 ps-3">
@@ -111,6 +111,8 @@ import * as Cart from '../../api/cart';
 import * as Product from '../../api/products';
 import * as Order from '../../api/order';
 import { useThemeStore } from '../../stores/useThemeStore';
+import * as Sales from '../../api/sales';
+let { delCart: delcart1 } = useCartStore();
 let listdata: Ref<Cart.CartDTO[]> = ref([]);
 let isloading = ref(true);
 let showModal = ref(false);
@@ -143,7 +145,7 @@ function btnDel(id: string | number | undefined) {
 }
 
 async function delCart() {
-  let { data } = await Cart.del(delId.value);
+  let { data } = await delcart1(delId.value);
   showModal.value = false;
   if (data.code == 200) {
     createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
@@ -171,10 +173,14 @@ async function btnPay() {
       }
     ]
   });
-  let { data: data2 } = await Cart.del(orderitem.value?.id ?? -1);
+  showLoadingModal.value = true;
+  let { data: data2 } = await delcart1(orderitem.value?.id ?? -1);
   if (data2.code == 200) {
     initList();
   }
+  showLoadingModal.value = true;
+
+  let { data: data3 } = await Sales.sales(orderitem.value?.productId ?? -1, user.value.id, orderitem.value?.quantity ?? 1, (orderitem.value?.quantity ?? 1) * (orderitem.value?.products?.price ?? 1))
 
   showLoadingModal.value = true;
   ordercreateresult.value = data1.data;
