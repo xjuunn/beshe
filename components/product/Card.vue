@@ -14,7 +14,7 @@
       <img v-show="!isImgLoading" class="absolute imgitem2 max-h-96" :src="processedCover" alt="图片" />
     </div>
     <div class="absolute bottom-btn bottom-[-70px] p-2 flex justify-between w-full">
-      <button class="btn btn-ghost">加入购物车</button>
+      <button class="btn btn-ghost" @click="btnAddCart">加入购物车</button>
       <button class="btn btn-ghost">详情</button>
     </div>
   </div>
@@ -94,6 +94,25 @@ async function convertWhiteToTransparent(imageUrl: string): Promise<string> {
     };
     image.onerror = () => resolve(imageUrl);
   });
+}
+async function btnAddCart() {
+  let { isLogin } = useUserStore();
+  if (!isLogin.value) {
+    navigateTo('/login');
+    return;
+  }
+
+  let { addCart } = useCartStore();
+  let { user } = useUserStore();
+  let { data } = await addCart({
+    userId: user.value.id,
+    productId: Number(itemData.value?.id ?? -1),
+    quantity: 1,
+  })
+  if (data.code == 200) createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
+  else createToast(data.message, { type: 'error', style: 'soft', icon: 'mdi:error' })
+
+
 }
 
 </script>

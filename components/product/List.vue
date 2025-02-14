@@ -14,10 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  layout: 'frontend'
-})
-import * as Product from '../api/products';
+import * as Product from '../../api/products';
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let searchValue: Ref<Product.SearchProduct> = ref({
   pageNum: 1, pageSize: 15
