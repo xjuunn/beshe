@@ -15,7 +15,7 @@
     </div>
     <div class="absolute bottom-btn bottom-[-70px] p-2 flex justify-between w-full">
       <button class="btn btn-ghost" @click="btnAddCart">加入购物车</button>
-      <button class="btn btn-ghost">详情</button>
+      <button class="btn btn-ghost" @click="navigateTo('/products/' + itemData?.id)">详情</button>
     </div>
   </div>
 </template>

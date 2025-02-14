@@ -15,15 +15,25 @@
 
 <script lang="ts" setup>
 import * as Product from '../../api/products';
+let props = defineProps(['search'])
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let searchValue: Ref<Product.SearchProduct> = ref({
-  pageNum: 1, pageSize: 15
+  pageNum: 1, pageSize: 15, name: props.search ?? ''
 });
 let listtotal: Ref<number> = ref(searchValue.value.pageSize);
 let isloading = ref(true);
+let timer: any = null;
+watch(() => props.search, () => {
+  searchValue.value.name = props.search
+  if (timer == null) {
+    timer = setTimeout(() => {
+      initList();
+      timer = null;
+    }, 1000);
+  }
+})
 onMounted(() => {
   initList();
-
 })
 
 async function initList() {
