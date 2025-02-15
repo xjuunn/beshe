@@ -21,6 +21,13 @@ export const useUserStore = defineStore('user', () => {
   const token = computed(() => _token);
   const user = computed(() => _user);
   const avatar = computed(() => _avatar);
+  function setAvatar(url: string) {
+    _avatar.value = url;
+  }
+  function setUser(user1: any) {
+    _user.value = user1;
+  }
+
   onMounted(() => {
     if (import.meta.client) {
       let tokenStorage = localStorage.getItem('token');
@@ -49,6 +56,7 @@ export const useUserStore = defineStore('user', () => {
       }
     }
     refreshAxios();
+    useCartStore().getCartNum();
     return data;
   }
 
@@ -67,6 +75,6 @@ export const useUserStore = defineStore('user', () => {
   }
 
 
-  return { isLogin, isAdmin, token, user, avatar, login, logout, apibaseurl }
+  return { isLogin, isAdmin, token, user, avatar, login, logout, apibaseurl, setAvatar, setUser }
 
 })

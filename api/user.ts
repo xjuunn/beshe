@@ -17,6 +17,14 @@ export function getUserInfo(username: string) {
 }
 
 /**
+ * 通过ID获取用户详情
+ * @param id 用户ID
+ */
+export function getUserInfoByID(id: number | string) {
+    return useAxios().get('/user/user/' + id);
+}
+
+/**
  * 更新用户
  * @param user 用户
  */

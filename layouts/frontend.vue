@@ -114,10 +114,10 @@
               </NuxtLink>
             </li>
             <li>
-              <a>
+              <NuxtLink to="/setting">
                 <Icon name="weui-setting-filled"></Icon>
                 设置
-              </a>
+              </NuxtLink>
             </li>
             <div class="divider my-0"></div>
             <li>

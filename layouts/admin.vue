@@ -114,10 +114,10 @@
                   </NuxtLink>
                 </li>
                 <li>
-                  <a>
+                  <NuxtLink to="/setting">
                     <Icon name="weui-setting-filled"></Icon>
                     设置
-                  </a>
+                  </NuxtLink>
                 </li>
                 <div class="divider my-0"></div>
                 <li>
@@ -219,5 +219,4 @@
 <script setup lang="ts">
 const { isDark, setTheme } = useThemeStore();
 const { isLogin, logout, isAdmin, avatar, user } = useUserStore();
-import Breadcrumbs from '../components/Breadcrumbs';
 </script>
