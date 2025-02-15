@@ -24,7 +24,7 @@
       </NuxtLink>
       <div class="input input-bordered input-md input-ghost bg-base-300 hidden lg:flex">
         <Icon name="ic-round-search" size="20"></Icon>
-        <input type="text" placeholder="搜索" class="" />
+        <input type="search" placeholder="搜索" v-model="searchValue" @change="onSearch" class="" />
       </div>
       <NuxtLink class="hidden sm:flex" to="/products">
         <button class="btn btn-ghost btn-sm lg:hidden">
@@ -172,13 +172,16 @@
 const { isDark, setTheme, isNavBlur } = useThemeStore();
 const { isLogin, logout, isAdmin, avatar, user } = useUserStore();
 const { cartNum, getCartNum } = useCartStore();
+let searchValue = ref('');
 onMounted(() => {
-
   initCart();
 })
-
 async function initCart() {
   await getCartNum();
+}
+function onSearch(e: Event) {
+  let target = e.target as HTMLInputElement;
+  navigateTo('/products?search=' + target.value)
 
 
 }

@@ -27,4 +27,8 @@ definePageMeta({
   layout: "frontend"
 })
 let searchstr = ref('')
+let { search } = useRoute().query;
+onMounted(() => {
+  searchstr.value = search + ''
+})
 </script>
