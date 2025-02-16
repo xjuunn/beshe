@@ -156,6 +156,27 @@ async function initData() {
 }
 
 async function btnUpdate() {
+  if (email.value.length > 30) {
+    createToast('邮箱过长', { style: 'soft', type: 'error', icon: 'mdi:error' });
+    return;
+  }
+  if (phone.value.length > 20) {
+    createToast('手机号过长', { style: 'soft', type: 'error', icon: 'mdi:error' });
+    return;
+  }
+  if (address.value.length > 200) {
+    createToast('地址信息过长', { style: 'soft', type: 'error', icon: 'mdi:error' });
+    return;
+  }
+  if (username.value.length > 20) {
+    createToast('用户名过长', { style: 'soft', type: 'error', icon: 'mdi:error' });
+    return;
+  }
+  if (username.value.length <= 0) {
+    createToast('请输入用户名', { style: 'soft', type: 'error', icon: 'mdi:error' });
+    return;
+  }
+
   let { data } = await User.updateUser({
     id: user.value.id,
     email: email.value,
