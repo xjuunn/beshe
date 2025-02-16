@@ -54,9 +54,13 @@
             <div class="font-bold line-clamp-2">{{ item.name }}</div>
             <div class="text-sm opacity-50">ID: {{ item.id }}</div>
           </th>
-          <td class="line-clamp-2">{{ item.info }}</td>
+          <td class="">
+            <div class="line-clamp-3">
+              {{ item.info }}
+            </div>
+          </td>
           <td>{{ item.model }}</td>
-          <td class="line-clamp-1">{{ item.category }}</td>
+          <td>{{ categoryMap.get(Number(item.category)) }}</td>
           <td>{{ item.price }}</td>
           <td>{{ item.inventory }}</td>
           <td>{{ item.updateTime }}</td>
@@ -76,14 +80,6 @@
     <div v-show="isloading" class="w-full text-center mt-10">
       <div class="loading"></div>
     </div>
-
-    <!-- <div class="flex items-center justify-center pt-9 pb-20">
-      <div class="join">
-        <button v-for="(item, index) in pageNumList" :key="item" @click="searchValue.pageNum = item; initList();"
-          class="join-item btn" :class="item == searchValue.pageNum ? 'btn-primary' : ''">{{ item }}</button>
-      </div>
-    </div> -->
-
     <div class="text-center mt-10 mb-20">
       <PaginationButton :current-page="searchValue.pageNum" :total-pages="Math.ceil(listtotal / searchValue.pageSize)"
         @update:current-page="(e: number) => { searchValue.pageNum = e; initList() }">
@@ -160,6 +156,7 @@
 <script setup lang="ts">
 import * as Product from '../../../api/products';
 import * as Limit from '../../../api/limitProduct'
+import * as Categorie from '../../../api/categories'
 //#region 主体
 definePageMeta({
   layout: 'admin'
@@ -177,9 +174,18 @@ let updatelimitQuantity = ref(0);
 let updatelimitTimeframe: Ref<"monthly" | "daily"> = ref("daily");
 let isShowUpdateModal = ref(false);
 let updateValue: Ref<Product.ProdoctDTO2 | undefined> = ref()
+let categoryMap: Ref<Map<number, string>> = ref(new Map());
 onMounted(async () => {
   initList();
+  initCategorie();
 })
+async function initCategorie() {
+  let { data } = await Categorie.getList();
+  for (let index = 0; index < data.data.length; index++) {
+    const element = data.data[index];
+    categoryMap.value.set(element.id, element.name);
+  }
+}
 async function initList() {
   isloading.value = true;
   let { data } = await Product.getProducts2(searchValue.value)

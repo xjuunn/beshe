@@ -11,9 +11,29 @@
       <div class="w-full max-w-[1400px] mt-5">
         <div class="text-xl"><b>热门分类</b></div>
         <div class="grid grid-cols-3 sm:grid-cols-6 mt-3 gap-3">
-          <div v-for="item in 6" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+            <div class="text-2xl">🍹</div>
+            <span class="text-sm mt-1">饮料</span>
+          </div>
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+            <div class="text-2xl">🧂</div>
+            <span class="text-sm mt-1">调味品</span>
+          </div>
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+            <div class="text-2xl">🍔</div>
+            <span class="text-sm mt-1">食品</span>
+          </div>
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+            <div class="text-2xl">🥜</div>
+            <span class="text-sm mt-1">干果</span>
+          </div>
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+            <div class="text-2xl">🍦</div>
+            <span class="text-sm mt-1">甜品</span>
+          </div>
+          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🖊️</div>
-            <span class="text-sm mt-1">学习用品</span>
+            <span class="text-sm mt-1">学习</span>
           </div>
         </div>
 
