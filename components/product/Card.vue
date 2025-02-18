@@ -50,7 +50,8 @@ function txtinc(str: string): string {
 async function replaceImg() {
   isImgLoading.value = true;
   if (itemData.value?.cover) {
-    const imageUrl = `http://localhost:3000/serverapi/uploads/products/${itemData.value.cover.split(',')[0]}`;
+    // const imageUrl = `http://localhost:3000/serverapi/uploads/products/${itemData.value.cover.split(',')[0]}`;
+    const imageUrl = Product.getProductCover(itemData.value.cover.split(',')[0]);
     processedCover.value = await convertWhiteToTransparent(imageUrl);
   }
   isImgLoading.value = false;
