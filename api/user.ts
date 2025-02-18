@@ -21,7 +21,7 @@ export function getUserInfo(username: string) {
  * @param id 用户ID
  */
 export function getUserInfoByID(id: number | string) {
-    return useAxios().get('/user/user/' + id);
+    return useAxios().get('/user/' + id);
 }
 
 /**

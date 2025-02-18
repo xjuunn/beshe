@@ -21,7 +21,7 @@ import * as Product from '../../api/products';
 let props = defineProps(['search', 'category'])
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let searchValue: Ref<Product.SearchProduct> = ref({
-  pageNum: 1, pageSize: 15, name: props.search ?? '', category: props.category ?? -1,
+  pageNum: 1, pageSize: 15, name: props.search ?? '', category: props.category ?? 0,
 });
 let listtotal: Ref<number> = ref(searchValue.value.pageSize);
 let isloading = ref(true);
@@ -37,7 +37,6 @@ watch(() => props.search + props.category, () => {
   }
 })
 onMounted(() => {
-  if (props.category ?? props.search) return;
   initList();
 })
 

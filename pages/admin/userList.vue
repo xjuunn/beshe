@@ -67,7 +67,10 @@
             {{ item.createTime }}
           </td>
           <td>
-            <div class="join">
+            <div v-show="item.roleId == 1">
+              不可修改
+            </div>
+            <div class="join" v-show="item.roleId != 1">
               <button class="btn btn-sm btn-primary" @click="navigateTo('/admin/userinfo/' + item.username)">修改</button>
               <button class="btn btn-sm btn-error" onclick="del_dialog.showModal()"
                 @click="btnDelete(item.id)">删除</button>
@@ -113,8 +116,8 @@ definePageMeta({
   layout: 'admin'
 })
 useBreadcrumbsStore().setBreadcrumbs([
-  {name: '仪表盘', path: '/admin'},
-  {name: '用户列表', path: '/admin/userList'},
+  { name: '仪表盘', path: '/admin' },
+  { name: '用户列表', path: '/admin/userList' },
 ]);
 import * as User from '../../api/user';
 let userlist: Ref<User.UserDTO[]> = ref([]);

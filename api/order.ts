@@ -131,6 +131,31 @@ export function updateDetails(id: string | number, orderId: string | number, det
 export function addDetails(id: string | number, detailsInfo: OrderDetails) {
     return useAxios().post('/api/order-details', { orderId: id, ...detailsInfo });
 }
+/**
+ * 通过订单状态查询用户订单
+ * @param userID 用户ID
+ * @param status 订单状态
+ */
+export function listOrderByUserIDStatus(userID: number | string, status: number | string = '') {
+    let url = `/api/orders/user/${userID}/page`;
+    if (status !== '') url += `?status=` + status
+    return useAxios().get(url);
+}
+
+/**
+ * 更新订单信息
+ * @param id 订单ID
+ * @param order 订单
+ */
+export function updateOrder(id: string | number, order: OrderUpdateDTO) {
+    return useAxios().put(`/api/orders/` + id, order)
+}
+
+export interface OrderUpdateDTO {
+    status: number;
+    totalPrice: number;
+    userId: number;
+}
 
 export interface OrderDTO {
     order: {
