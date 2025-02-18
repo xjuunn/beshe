@@ -22,6 +22,7 @@ export type SearchProduct = {
     pageNum: number;
     pageSize: number;
     name?: string;
+    category?: string;
 }
 
 export type ProdoctDTO2 = {
@@ -135,6 +136,14 @@ export function updateProduct(id: number | string, product: ProductDTO) {
  */
 export function lowInventory() {
     return useAxios().get('/api/products/low-stock');
+}
+
+/**
+ * 通过商品分类查询商品
+ * @param id 商品分类ID
+ */
+export function listProductByCategory(id: number | string, pageNum: number | string, pageSize: number | string) {
+    return useAxios().get(`/api/products/category/${id}/page?pageNum=${pageNum}&pageSize=${pageSize}`)
 }
 
 export type ProductDTO = {

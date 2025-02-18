@@ -23,18 +23,18 @@
             {{ item.order.id }}
           </td>
           <th>
-            <div class="font-bold">{{ item.user.username }}</div>
-            <div class="text-sm opacity-50">ID: {{ item.user.id }}</div>
+            <div class="font-bold">{{ item.user?.username }}</div>
+            <div class="text-sm opacity-50">ID: {{ item.user?.id }}</div>
           </th>
           <td>
-            {{ item.user.address }}
+            {{ item.user?.address }}
           </td>
           <td>
-            {{ item.user.phone }}
+            {{ item.user?.phone }}
           </td>
           <td class="max-w-52">
-            <b class="font-bold line-clamp-1">{{ item.product == undefined ? '无信息' : item.product.name }}</b>
-            <div class="line-clamp-2 opacity-80">{{ item.product == undefined ? '无信息' : item.product.info }}</div>
+            <b class="font-bold line-clamp-1">{{ item.products.length == 0 ? '无信息' : item.products[0].name }}</b>
+            <div class="line-clamp-2 opacity-80">{{ item.products.length == 0 ? '无信息' : item.products[0]?.info }}</div>
           </td>
           <td class="">{{ Order.OrderStatusArr[item.order.status] }}</td>
           <td> {{ item.order.totalPrice }} </td>
@@ -90,16 +90,17 @@
             </span>
           </div>
           <div class="mt-3">
-            <img :src="Product.getProductCover(orderInfo?.product.cover + '')" alt="">
-            商品名称: {{ orderInfo?.product?.name }} <span class="text-sm ml-3">ID: {{ orderInfo?.product?.id }}</span>
+            <img :src="Product.getProductCover(orderInfo?.products[0].cover + '')" alt="">
+            商品名称: {{ orderInfo?.products[0]?.name }} <span class="text-sm ml-3">ID: {{ orderInfo?.products[0]?.id
+              }}</span>
             <p class="mt-3">
               商品信息: <span class="text-sm opacity-80 ml-3">
-                {{ orderInfo?.product?.info }}
+                {{ orderInfo?.products[0]?.info }}
               </span>
             </p>
             <div class="mt-3 flex justify-between text-sm">
               <span>价格: {{ orderInfo?.order?.totalPrice }}</span>
-              <span>型号: {{ orderInfo?.product?.model }}</span>
+              <span>型号: {{ orderInfo?.products[0]?.model }}</span>
             </div>
           </div>
           <div class="divider"> 用户信息 </div>
@@ -135,8 +136,8 @@ definePageMeta({
   layout: 'admin'
 })
 useBreadcrumbsStore().setBreadcrumbs([
-  {name: '仪表盘', path: '/admin'},
-  {name: '订单列表', path: '/admin/order'}
+  { name: '仪表盘', path: '/admin' },
+  { name: '订单列表', path: '/admin/order' }
 ]);
 import * as Order from '../../../api/order'
 import * as Product from '../../../api/products'

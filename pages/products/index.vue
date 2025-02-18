@@ -7,15 +7,13 @@
           <input v-model="searchstr" type="text" placeholder="搜索商品" class="input input-bordered focus:outline-0" />
         </label>
         <div class="filter">
-          <input class="btn filter-reset" type="radio" name="type" aria-label="全部" />
-          <input class="btn" type="radio" name="type" aria-label="学习用品" />
-          <input class="btn" type="radio" name="type" aria-label="生活用品" />
-          <input class="btn" type="radio" name="type" aria-label="日用品" />
-
+          <input class="btn filter-reset" @click="categoryid = -1" type="radio" name="type" aria-label="全部" />
+          <input v-for="(item, index) in categoryList" class="btn" type="radio" name="type"
+            @click="categoryid = item.id ?? -1" :aria-label="item.name" />
         </div>
       </div>
       <div class="mt-5">
-        <ProductList :search="searchstr"></ProductList>
+        <ProductList :search="searchstr" :category="categoryid"></ProductList>
       </div>
     </div>
   </div>
@@ -26,9 +24,19 @@ useThemeStore().setNavBlur(true);
 definePageMeta({
   layout: "frontend"
 })
+import * as Category from '../../api/categories';
 let searchstr = ref('')
-let { search } = useRoute().query;
+let { search, category } = useRoute().query;
+let categoryid = ref(-1);
+let categoryList: Ref<Category.CategoryDTO[]> = ref([]);
 onMounted(() => {
-  if (search) searchstr.value = search + ''
+  if (search) searchstr.value = search + '';
+  if (category) categoryid.value = Number(category);
+  initCategory();
 })
+async function initCategory() {
+  let { data } = await Category.getList();
+  categoryList.value = data.data;
+}
+
 </script>

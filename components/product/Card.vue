@@ -23,7 +23,7 @@
 <script lang="ts" setup>
 import * as Product from '../../api/products';
 import { ref, onMounted, computed } from 'vue';
-
+let runtimeconfig = useRuntimeConfig();
 let itemData = ref<Product.ProdoctDTO2 | undefined>(undefined);
 let bgtxt1 = ref('');
 let bgtxt2 = ref('');
@@ -50,8 +50,8 @@ function txtinc(str: string): string {
 async function replaceImg() {
   isImgLoading.value = true;
   if (itemData.value?.cover) {
-    // const imageUrl = `http://localhost:3000/serverapi/uploads/products/${itemData.value.cover.split(',')[0]}`;
-    const imageUrl = Product.getProductCover(itemData.value.cover.split(',')[0]);
+    let imageUrl = Product.getProductCover(itemData.value.cover.split(',')[0]);
+    imageUrl = useAxios().defaults.baseURL + imageUrl.replaceAll(runtimeconfig.public.apibaseurl, '')
     processedCover.value = await convertWhiteToTransparent(imageUrl);
   }
   isImgLoading.value = false;

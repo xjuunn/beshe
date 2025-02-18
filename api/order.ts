@@ -141,7 +141,7 @@ export interface OrderDTO {
         productId: number;
         createTime: string;
     };
-    product: {
+    products: {
         id: number;
         name: string;
         model: string;
@@ -152,7 +152,7 @@ export interface OrderDTO {
         inventory: number;
         createTime: string;
         updateTime: string;
-    };
+    }[];
     user: {
         id: number;
         username: string;

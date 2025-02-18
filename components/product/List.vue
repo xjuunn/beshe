@@ -6,6 +6,9 @@
         <ProductCard :data="item"></ProductCard>
       </div>
     </div>
+    <div v-show="isloading" class="w-full mt-20 mb-20 text-center">
+      <div class="loading loading-lg"></div>
+    </div>
     <div class="w-full text-center mt-10 mb-20">
       <PaginationButton :current-page="searchValue.pageNum" :total-pages="Math.ceil(listtotal / searchValue.pageSize)"
         @update:current-page="(n: number) => { searchValue.pageNum = n; initList() }"></PaginationButton>
@@ -15,32 +18,45 @@
 
 <script lang="ts" setup>
 import * as Product from '../../api/products';
-let props = defineProps(['search'])
+let props = defineProps(['search', 'category'])
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 let searchValue: Ref<Product.SearchProduct> = ref({
-  pageNum: 1, pageSize: 15, name: props.search ?? ''
+  pageNum: 1, pageSize: 15, name: props.search ?? '', category: props.category ?? -1,
 });
 let listtotal: Ref<number> = ref(searchValue.value.pageSize);
 let isloading = ref(true);
 let timer: any = null;
-watch(() => props.search, () => {
+watch(() => props.search + props.category, () => {
   searchValue.value.name = props.search
+  searchValue.value.category = props.category;
   if (timer == null) {
     timer = setTimeout(() => {
       initList();
       timer = null;
-    }, 1000);
+    }, 500);
   }
 })
 onMounted(() => {
+  if (props.category ?? props.search) return;
   initList();
 })
 
 async function initList() {
   isloading.value = true;
-  let { data } = await Product.getProducts2(searchValue.value)
-  listtotal.value = data.data.total;
-  listdata.value = data.data.records;
+  if (searchValue.value.name) {
+    let { data } = await Product.getProducts2(searchValue.value)
+    listtotal.value = data.data.total;
+    listdata.value = data.data.records;
+  } else if (Number(searchValue.value.category) > 0) {
+    let { data } = await Product.listProductByCategory(searchValue.value.category ?? 1, searchValue.value.pageNum, searchValue.value.pageSize);
+    listtotal.value = data.data.total;
+    listdata.value = data.data.records;
+  } else {
+    let { data } = await Product.getProducts2(searchValue.value)
+    listtotal.value = data.data.total;
+    listdata.value = data.data.records;
+  }
+
   isloading.value = false;
 }
 </script>

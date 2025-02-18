@@ -11,30 +11,30 @@
       <div class="w-full max-w-[1400px] mt-5">
         <div class="text-xl"><b>热门分类</b></div>
         <div class="grid grid-cols-3 sm:grid-cols-6 mt-3 gap-3">
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          <NuxtLink to="/products?category=1" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🍹</div>
             <span class="text-sm mt-1">饮料</span>
-          </div>
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          </NuxtLink>
+          <NuxtLink to="/products?category=2" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🧂</div>
             <span class="text-sm mt-1">调味品</span>
-          </div>
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          </NuxtLink>
+          <NuxtLink to="/products?category=3" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🍔</div>
             <span class="text-sm mt-1">食品</span>
-          </div>
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          </NuxtLink>
+          <NuxtLink to="/products?category=4" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🥜</div>
             <span class="text-sm mt-1">干果</span>
-          </div>
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          </NuxtLink>
+          <NuxtLink to="/products?category=5" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🍦</div>
             <span class="text-sm mt-1">甜品</span>
-          </div>
-          <div class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
+          </NuxtLink>
+          <NuxtLink to="/products?category=6" class="card w-full shadow-xl bg-base-200 text-center p-3 cursor-pointer">
             <div class="text-2xl">🖊️</div>
             <span class="text-sm mt-1">学习</span>
-          </div>
+          </NuxtLink>
         </div>
 
         <div class="text-xl mt-3"><b>推荐商品</b></div>
