@@ -63,10 +63,11 @@
           class="card w-full bg-base-300 shadow-xl mt-6 p-5 cursor-default scrollreveal-item">
           <div>
             <div class="avatar">
-              <div class="w-8 rounded-xl bg-center bg-cover"
-                :style="{ backgroundImage: `url(https://picsum.photos/64/64` }"></div>
+              <div class="w-8 rounded-xl bg-center bg-cover">
+                <img :src="User.getUserCover(item.avatar)" alt="">
+              </div>
             </div>
-            <span class="text-sm opacity-50 h-full ml-3">{{ item.userId }}</span>
+            <span class="text-sm opacity-50 h-full ml-3">{{ item.username }}</span>
           </div>
           <p class="indent-7 p-3 mt-2">
             {{ item.content }}
@@ -88,6 +89,7 @@ definePageMeta({
 })
 import * as Product from '../../api/products'
 import * as Review from '../../api/reviews'
+import * as User from '../../api/user'
 let { id } = useRoute().params;
 let cover: Ref<string> = ref('');
 function changeImage(cover1: string) {
@@ -96,7 +98,7 @@ function changeImage(cover1: string) {
 let detailData: Ref<Product.ProdoctDTO2 | undefined> = ref();
 let isloading = ref(true);
 let quantity = ref(1);
-let reviewListData: Ref<Review.ReviewDTO[]> = ref([]);
+let reviewListData: Ref<Review.ReviewAndUserInfo[]> = ref([]);
 let reviewPageSize = ref(15);
 let reviewPageNum = ref(1);
 let reivewListTotal = ref(15);
@@ -107,11 +109,11 @@ onMounted(() => {
 })
 async function initReviewData() {
   reviewIsloaing.value = true;
-  let { data } = await Review.listByProductID(id + '', reviewPageSize.value, reviewPageNum.value);
+  let { data } = await Review.listincUserinfo(id + '', reviewPageSize.value, reviewPageNum.value);
   reviewListData.value = data.data.records;
   reivewListTotal.value = data.data.total;
   reviewIsloaing.value = false;
-
+  
 }
 
 async function initData() {

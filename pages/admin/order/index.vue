@@ -27,7 +27,10 @@
             <div class="text-sm opacity-50">ID: {{ item.user?.id }}</div>
           </th>
           <td>
-            {{ item.user?.address }}
+            <p class="line-clamp-1">
+
+              {{ item.user?.address }}
+            </p>
           </td>
           <td>
             {{ item.user?.phone }}
@@ -92,7 +95,7 @@
           <div class="mt-3">
             <img :src="Product.getProductCover(orderInfo?.products[0].cover + '')" alt="">
             商品名称: {{ orderInfo?.products[0]?.name }} <span class="text-sm ml-3">ID: {{ orderInfo?.products[0]?.id
-              }}</span>
+            }}</span>
             <p class="mt-3">
               商品信息: <span class="text-sm opacity-80 ml-3">
                 {{ orderInfo?.products[0]?.info }}

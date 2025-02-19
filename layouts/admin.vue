@@ -14,7 +14,7 @@
             <Icon name="mingcute-back-fill"></Icon>
             返回前台
           </NuxtLink>
-          <Breadcrumbs :items="[{ name: '后台', path: '/admin' },{ name: '用户管理', path: '/admin/userlist' }]">
+          <Breadcrumbs :items="[{ name: '后台', path: '/admin' }, { name: '用户管理', path: '/admin/userlist' }]">
           </Breadcrumbs>
           <div class="flex justify-end w-full gap-2 items-center">
             <!-- 日志统计 -->
@@ -197,10 +197,10 @@
                 </NuxtLink>
               </li>
               <li>
-                <a>
+                <NuxtLink to="/admin/service">
                   <Icon name="tdesign-service-filled" size="18"></Icon>
                   退款和售后
-                </a>
+                </NuxtLink>
               </li>
               <li class="menu-title">系统设置</li>
               <li>

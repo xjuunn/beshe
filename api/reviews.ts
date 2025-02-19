@@ -47,6 +47,16 @@ export function del(id: string | number) {
 }
 
 /**
+ * 获取商品的评论列表（携带用户信息）
+ * @param id 商品ID
+ * @param pageSize 每页数据量
+ * @param pageNum 页码
+ */
+export function listincUserinfo(id: string | number, pageSize: number, pageNum: number) {
+    return useAxios().get(`/api/reviews/product/${id}/with-user/page?page=${pageNum}&size=${pageSize}`)
+}
+
+/**
  * 评论数据传输对象
  */
 export interface ReviewDTO {
@@ -56,4 +66,16 @@ export interface ReviewDTO {
     rating: number,
     content: string,
     createTime?: string,
+}
+
+export interface ReviewAndUserInfo  {
+    id:number
+    userId:number
+    productId:number
+    rating:number
+    content:string
+    createTime:string
+    username:string
+    email:string
+    avatar:string
 }
