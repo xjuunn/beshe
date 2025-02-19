@@ -25,7 +25,7 @@ export enum OrderStatus {
     "申请退货" = 3,
     "已退货" = 4,
     "已取消" = 5,
-    "已退款" = 6,
+    "退货中" = 6,
 }
 
 export let OrderStatusArr = [
@@ -35,7 +35,7 @@ export let OrderStatusArr = [
     "申请退货",
     "已退货",
     "已取消",
-    "已退款",
+    "退货中",
 ]
 
 
@@ -149,6 +149,16 @@ export function listOrderByUserIDStatus(userID: number | string, status: number 
  */
 export function updateOrder(id: string | number, order: OrderUpdateDTO) {
     return useAxios().put(`/api/orders/` + id, order)
+}
+
+/**
+ * 分页获取订单状态为id的订单
+ * @param id 订单状态ID
+ * @param pageSize 分页大小
+ * @param pageNum 页码
+ */
+export function listByStatus(id: string | number, pageSize: number, pageNum: number) {
+    return useAxios().get(`/api/orders/user/status/page?pageNum=${pageNum}&pageSize=${pageSize}&status=${id}`)
 }
 
 export interface OrderUpdateDTO {

@@ -36,18 +36,22 @@
             <b class="font-bold line-clamp-1">{{ item.products.length == 0 ? '无信息' : item.products[0].name }}</b>
             <div class="line-clamp-2 opacity-80">{{ item.products.length == 0 ? '无信息' : item.products[0]?.info }}</div>
           </td>
-          <td class="">{{ Order.OrderStatusArr[item.order.status] }}</td>
+          <td class="text-error">{{ Order.OrderStatusArr[item.order.status] }}</td>
           <td> {{ item.order.totalPrice }} </td>
-          <td>{{ item.order.createTime }}</td>
+          <td>
+            <p>
+              {{ new Date(item.order.createTime).toLocaleString() }}
+            </p>
+          </td>
           <td>
             <div class="join">
-              <button class="btn btn-soft btn-sm btn-primary" @click="">
-                <Icon name="majesticons-open" size="1.2rem"></Icon>
-                查看
+              <button class="btn btn-sm btn-primary" @click="btnPass(item)">
+                <Icon name="codicon:pass-filled" size="1.2rem"></Icon>
+                通过
               </button>
-              <button class="btn btn-soft btn-sm btn-error" onclick="del_dialog.showModal()" @click="">
-                <Icon name="material-symbols:delete" size="1.2rem"></Icon>
-                删除
+              <button class="btn btn-sm btn-error" @click="btnBan(item)">
+                <Icon name="mdi:ban" size="1.2rem"></Icon>
+                驳回
               </button>
             </div>
           </td>
@@ -66,6 +70,8 @@ useBreadcrumbsStore().setBreadcrumbs([
   { name: '退款和售后', path: '/admin/service' }
 ]);
 import * as Order from '../../../api/order';
+import { listByStatus } from '../../../api/order';
+let { user } = useUserStore();
 let listData: Ref<Order.OrderDTO[]> = ref([]);
 let isloading = ref(true);
 let listTotal = ref(15);
@@ -79,9 +85,30 @@ onMounted(() => {
 
 async function initList() {
   isloading.value = true;
-  let { data } = await Order.listPage(searchValue.value.pageSize, searchValue.value.pageNum);
+  let { data } = await Order.listByStatus(3, searchValue.value.pageSize, searchValue.value.pageNum);
   listData.value = data.data.records;
   listTotal.value = data.data.total;
   isloading.value = false;
+}
+async function btnPass(order: Order.OrderDTO) {
+  let { data } = await Order.updateOrder(order.order.id, {
+    status: 4,
+    totalPrice: order.order.totalPrice,
+    userId: user.value.id
+  })
+  if (data.code == 200) createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
+  else createToast(data.message, { type: 'error', style: 'soft', icon: 'mdi:error' })
+  initList();
+
+}
+async function btnBan(order: Order.OrderDTO) {
+  let { data } = await Order.updateOrder(order.order.id, {
+    status: 1,
+    totalPrice: order.order.totalPrice,
+    userId: user.value.id
+  })
+  if (data.code == 200) createToast(data.message, { type: 'success', style: 'soft', icon: 'mdi:success' })
+  else createToast(data.message, { type: 'error', style: 'soft', icon: 'mdi:error' })
+  initList();
 }
 </script>
