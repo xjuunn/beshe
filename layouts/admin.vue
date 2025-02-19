@@ -18,10 +18,10 @@
           </Breadcrumbs>
           <div class="flex justify-end w-full gap-2 items-center">
             <!-- 日志统计 -->
-            <button class="btn btn-ghost btn-sm">
+            <!-- <button class="btn btn-ghost btn-sm">
               <Icon name="icon-park-outline-log"></Icon>
               日志统计
-            </button>
+            </button> -->
             <!-- 主题切换 -->
             <label class="swap swap-rotate btn btn-ghost btn-sm btn-circle ml-2 pt-1 ">
               <input type="checkbox" v-model="isDark" @change="setTheme(isDark)" />
@@ -33,7 +33,7 @@
               </div>
             </label>
             <!-- 通知 -->
-            <div class="dropdown dropdown-end">
+            <!-- <div class="dropdown dropdown-end">
               <div tabindex="0" role="button"
                 class="btn btn-ghost btn-sm btn-circle indicator indicator-top indicator-end">
                 <div class="indicator-item badge badge-xs badge-primary">1</div>
@@ -61,7 +61,7 @@
                   查看所有通知
                 </a>
               </ul>
-            </div>
+            </div> -->
             <!-- 用户头像 -->
             <div class="ml-2 dropdown dropdown-end">
               <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">

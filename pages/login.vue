@@ -10,8 +10,6 @@
     <div class="w-full h-full absolute top-0 left-0 z-2 bg-gradient-to-b from-base-200 via-transparent to-base-200">
     </div>
     <div class="w-full h-full absolute top-0 left-0 z-40 flex items-center justify-center">
-
-
       <div class="card w-full max-w-lg h-fit backdrop-blur-2xl border border-base-content/10">
         <div class="card-title self-center text-2xl mt-5">登 录</div>
         <div class="card-body items-center gap-5 mt-5 pb-5 border-t border-base-content/10">
@@ -57,6 +55,7 @@ async function btnLogin() {
   isloading.value = false;
   log.value = data.message
   if (data.code == 200) {
+    await useFetch('/api/viewadd');
     navigateTo('/');
   }
 
