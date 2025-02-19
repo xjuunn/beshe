@@ -27,12 +27,9 @@
       </div>
       <div class="stat">
         <div class="stat-figure text-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            class="inline-block h-8 w-8 stroke-current">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-          </svg>
+          <Icon name="solar:ghost-bold-duotone" size="3rem"></Icon>
         </div>
-        <div class="stat-title">用户访问量</div>
+        <div class="stat-title">用户登录量</div>
         <div class="stat-value text-secondary">{{ viewnum }}</div>
         <div class="stat-desc">从前端程序运行开始计数</div>
       </div>
