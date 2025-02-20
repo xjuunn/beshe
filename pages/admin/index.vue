@@ -17,7 +17,7 @@
           <DashboardD4></DashboardD4>
         </div>
       </div>
-      <div class="charts pr-1 pl-1 grid grid-cols-12 gap-3">
+      <div class="charts pr-1 pl-1 md:pr-3 md:pl-3 grid grid-cols-12 gap-3">
         <div class="bg-base-300 p-3 shadow-lg rounded-2xl col-span-12 xl:col-span-7">
           <DashboardChart2></DashboardChart2>
         </div>

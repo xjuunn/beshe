@@ -49,7 +49,7 @@ onMounted(() => {
 let listdata: Ref<Product.ProdoctDTO2[]> = ref([]);
 async function initList() {
   let { data } = await Product.lowInventory();
-  for (let index = 0; index < 3; index++) {
+  for (let index = 0; index < 4; index++) {
     if (data.data.length <= index) break;
     const item = data.data[index];
     listdata.value.push(item)
