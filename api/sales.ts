@@ -6,7 +6,7 @@
  * @param totalRevenue 总收入
  */
 export function sales(productId: number, userId: number, quantitySold: number, totalRevenue: number) {
-    return useAxios().post("/api/sales", {productId, userId, totalRevenue, quantitySold})
+    return useAxios().post("/api/sales", { productId, userId, totalRevenue, quantitySold })
 }
 
 /**
@@ -40,55 +40,64 @@ export function history(size: number = 15, page: number = 1) {
 }
 
 /**
+ * 根据日期获取销售记录
+ * @param year 年份
+ * @param month 月份
+ */
+export function historyByDate(year: number, month: number) {
+    return useAxios().get(`/api/sales/stats/month/${year}/${month}`)
+}
+
+/**
  * 销售记录DTO
  */
-export type HistoryDTO =  {
+export type HistoryDTO = {
     salesStats: {
-        id:number;
-        productId:number;
-        userId:number;
-        quantitySold:number;
-        totalRevenue:number;
-        soldTime:string;
+        id: number;
+        productId: number;
+        userId: number;
+        quantitySold: number;
+        totalRevenue: number;
+        soldTime: string;
     },
     product: {
-        id:number
-        name:string
-        model:string
-        info:string
-        price:number
-        category:number
-        cover:string
-        inventory:number
-        createTime:string
-        updateTime:string
+        id: number
+        name: string
+        model: string
+        info: string
+        price: number
+        category: number
+        cover: string
+        inventory: number
+        createTime: string
+        updateTime: string
     },
     user: {
-        id:number
-        username:string
-        password:string
-        email:string
-        address:string
-        phone:string
-        avatar:string
-        roleId:number
-        isMember:number
-        createTime:string
+        id: number
+        username: string
+        password: string
+        email: string
+        address: string
+        phone: string
+        avatar: string
+        roleId: number
+        isMember: number
+        createTime: string
     }
 }
 
 /**
  * 销售信息DTO
  */
-export type SalesDTO =  {
-   id:number;
-   name:string;
-   model:string;
-   info:string;
-   price:number;
-   category:string;
-   cover:string;
-   inventory:number;
-   createTime:string;
-   updateTime:string;
+export type SalesDTO = {
+    id: number;
+    name: string;
+    model: string;
+    info: string;
+    price: number;
+    category: string;
+    cover: string;
+    inventory: number;
+    createTime: string;
+    updateTime: string;
 }

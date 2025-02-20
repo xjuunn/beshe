@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex items-center justify-center">
     <div
-      class="stats stats-vertical sm:stats-vertical md:stats-horizontal lg:stats-vertical xl:stats-horizontal shadow w-full h-full">
+      class="stats stats-vertical sm:stats-vertical scrollbar-hidden md:stats-horizontal xl:stats-horizontal w-full h-full">
       <div class="stat">
         <div class="stat-figure text-secondary">
           <div class="avatar online">
@@ -12,7 +12,7 @@
         </div>
         <div class="stat-value text-2xl">欢迎管理员 &nbsp;{{ user.username }}</div>
         <div class="stat-title">{{ new Date().toLocaleDateString() }}</div>
-        <div class="stat-desc text-secondary">
+        <div class="stat-desc text-secondary" v-show="returnnum">
           <NuxtLink to="/admin/service" class="animate-pulse">{{ returnnum }} 条退货申请</NuxtLink>
         </div>
       </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="stat-title">用户登录量</div>
         <div class="stat-value text-secondary">{{ viewnum }}</div>
-        <div class="stat-desc">从前端程序运行开始计数</div>
+        <div class="stat-desc">自运行计数</div>
       </div>
     </div>
   </div>
