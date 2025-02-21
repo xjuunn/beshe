@@ -5,7 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   devtools: {
     enabled: true,
-
     timeline: {
       enabled: true
     }
@@ -64,7 +63,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     public: {
-      apibaseurl:process.env.API_BASE_URL
+      apibaseurl: process.env.API_BASE_URL
     }
   },
   app: {
@@ -102,5 +101,19 @@ export default defineNuxtConfig({
       'VisualMapComponent',
     ],
   },
-  build: { transpile: ['echarts-liquidfill'] }
+  build: { transpile: ['echarts-liquidfill'] },
+  content: {
+    markdown: {
+      toc: {
+        depth: 3
+      },
+      remarkPlugins: [
+        "remark-prism",
+        "remark-toc",
+        "remark-oembed",
+        "remark-emoji",
+        "remark-gfm"
+      ],
+    }
+  }
 });
