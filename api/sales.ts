@@ -48,6 +48,20 @@ export function historyByDate(year: number, month: number) {
     return useAxios().get(`/api/sales/stats/month/${year}/${month}`)
 }
 
+export interface BestSale  {
+    id:number;
+    name:string;
+    model:string;
+    info:string;
+    price:number;
+    category:number;
+    cover:string;
+    inventory:number;
+    createTime:string;
+    updateTime:string;
+    totalSold:number;
+}
+
 /**
  * 销售记录DTO
  */

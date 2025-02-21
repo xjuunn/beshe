@@ -30,8 +30,8 @@ onMounted(() => {
   initList()
 })
 async function initList() {
-  let { data } = await Review.listincUserinfo(37, 15, 1);
-  listdata.value = data.data.records
+  let { data } = await Review.listNewReview();
+  listdata.value = data.data
 
 }
 </script>

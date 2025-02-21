@@ -57,6 +57,13 @@ export function listincUserinfo(id: string | number, pageSize: number, pageNum: 
 }
 
 /**
+ * 获取最新的10条评论
+ */
+export function listNewReview() {
+    return useAxios().get('/api/reviews/latest');
+}
+
+/**
  * 评论数据传输对象
  */
 export interface ReviewDTO {
@@ -68,14 +75,14 @@ export interface ReviewDTO {
     createTime?: string,
 }
 
-export interface ReviewAndUserInfo  {
-    id:number
-    userId:number
-    productId:number
-    rating:number
-    content:string
-    createTime:string
-    username:string
-    email:string
-    avatar:string
+export interface ReviewAndUserInfo {
+    id: number
+    userId: number
+    productId: number
+    rating: number
+    content: string
+    createTime: string
+    username: string
+    email: string
+    avatar: string
 }
