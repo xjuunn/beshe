@@ -2,7 +2,7 @@
   <div class="flex items-center justify-center">
     <title>文档</title>
     <div>
-      <article class="prose p-5">
+      <article class="prose p-5 prose-a:text-accent">
         <ContentRenderer :value="content"></ContentRenderer>
       </article>
     </div>
