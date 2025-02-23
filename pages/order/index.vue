@@ -37,8 +37,15 @@
             @click="btntvho(item)">申请退货</button>
           <button class="btn btn-sm join-item btn-primary" @click="showOrderDetail(); reviewid = item.products[0].id"
             v-show="item.order.status !== 0">评价</button>
+          <button class="btn btn-sm join-item btn-primary" @click="btnPay(item)"
+            v-show="item.order.status == 0">付款</button>
         </div>
       </div>
+    </div>
+    <div class="mt-10 mb-20 text-center">
+      <PaginationButton :current-page="searchValue.pageNum" :total-pages="Math.ceil(listTotal / searchValue.pageSize)"
+        @update:current-page="(n) => { searchValue.pageNum = n; initList() }">
+      </PaginationButton>
     </div>
     <Teleport to="body">
       <div v-show="isShoModal" @click="closeModal"
@@ -185,6 +192,8 @@ async function setOrderStatus(order: Order.OrderDTO, status: number) {
     createToast(data.message, { style: 'soft', type: 'error', icon: 'mdi:error' })
   }
 }
-
+function btnPay(order: Order.OrderDTO) {
+  setOrderStatus(order, 1);
+}
 
 </script>

@@ -37,7 +37,7 @@
             <div class="flex-1">
               <span>金额: </span>
               <span class="text-xl font-semibold text-primary me-4">¥{{ (item.products?.price ?? 1) * item.quantity
-                }}</span>
+              }}</span>
               <p class="text-base-content/50 text-xs"> {{ item.products?.createTime }}</p>
             </div>
             <div class="card-actions justify-end flex items-end pe-2">
@@ -157,6 +157,11 @@ async function delCart() {
 async function btnPay() {
   showCreateOrderModal.value = false;
   ordercreateresult.value = '';
+  if (!user.value.address) {
+    createToast("请先设置收获地址", { type: 'error', style: 'soft', icon: 'mdi:error' })
+    navigateTo('/setting')
+    return;
+  }
   showLoadingModal.value = true;
   let { data: data1 } = await Order.add({
     order: {
