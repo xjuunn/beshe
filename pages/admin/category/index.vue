@@ -28,7 +28,7 @@
             </td>
             <td>
               <div class="join" v-show="updateindex == index">
-                <button class="btn btn-ghost btn-sm join-item" @click="updateindex = -1; updateindex = -1">取消</button>
+                <button class="btn btn-ghost btn-sm join-item" @click="updateindex = -1; updateindex = -1;initList()">取消</button>
                 <button class="btn btn-primary btn-sm join-item" @click="Category.update(item); updateindex = -1">保存
                 </button>
               </div>
