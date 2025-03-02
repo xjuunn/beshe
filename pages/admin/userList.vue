@@ -25,11 +25,11 @@
       <!-- 表头 -->
       <thead>
         <tr>
-          <td>
+          <!-- <td>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
-          </td>
+          </td> -->
           <td>头像</td>
           <th class="min-w-20">用户</th>
           <td>角色</td>
@@ -43,11 +43,11 @@
       <tbody>
         <!-- 行 -->
         <tr v-show="!isloading" v-for="(item, index) in userlist" :key="item.id">
-          <td>
+          <!-- <td>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
-          </td>
+          </td> -->
           <td>
             <div class="avatar">
               <div class="mask mask-squircle h-12 w-12">

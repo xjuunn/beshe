@@ -19,11 +19,11 @@
       <!-- 表头 -->
       <thead>
         <tr>
-          <td>
+          <!-- <td>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
-          </td>
+          </td> -->
           <td>图片</td>
           <th class="min-w-20">商品</th>
           <td>描述</td>
@@ -38,11 +38,11 @@
       <tbody>
         <!-- 行 -->
         <tr v-show="!isloading" v-for="(item, index) in listdata" :key="item.id">
-          <td>
+          <!-- <td>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
-          </td>
+          </td> -->
           <td>
             <div class="avatar">
               <div class="h-12 w-12 overflow-hidden">

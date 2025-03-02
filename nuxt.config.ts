@@ -77,10 +77,10 @@ export default defineNuxtConfig({
           children: `
             (function() {
               var theme = localStorage.getItem('isDark');
-              if (theme === 'false') {
-                document.documentElement.setAttribute('data-theme', 'light');
-              } else {
+              if (theme === 'true') {
                 document.documentElement.setAttribute('data-theme', 'dark');
+              } else {
+                document.documentElement.setAttribute('data-theme', 'light');
               }
             })()
           `

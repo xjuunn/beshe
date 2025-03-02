@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "daisyui";
+/* @plugin "daisyui"; */
+@plugin "daisyui" {
+    themes: all;
+  }
 /* @import "prismjs/themes/prism-tomorrow.css"; */
 @import "prismjs/themes/prism-tomorrow.css"; 

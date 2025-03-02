@@ -1,7 +1,6 @@
 <template>
   <div class="flex items-center justify-center h-full">
-    <div
-      class="stats w-full scrollbar-hidden stats-vertical lg:stats-vertical xl:stats-horizontal">
+    <div class="stats w-full scrollbar-hidden stats-vertical lg:stats-vertical xl:stats-horizontal">
       <div class="stat">
         <div class="stat-figure figure text-accent">
           <Icon name="solar:layers-bold-duotone" size="3rem"></Icon>
@@ -34,7 +33,10 @@ onMounted(() => {
 
 async function initData() {
   let { data } = await useAxios().get('/api/sales/stats/monthly-total');
-  totalRevenue.value = data.data.totalRevenue;
-  totalQuantitySold.value = data.data.totalQuantitySold;
+  if (data.data) {
+    totalRevenue.value = data.data.totalRevenue;
+    totalQuantitySold.value = data.data.totalQuantitySold;
+  }
+
 }
 </script>

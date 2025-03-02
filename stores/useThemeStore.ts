@@ -1,6 +1,6 @@
 
 export const useThemeStore = defineStore('theme', () => {
-  let _isDark = ref(true);
+  let _isDark = ref(false);
   let _navBlur = ref(true);
   const isDark = computed(() => _isDark);
   const isNavBlur = computed(() => _navBlur);

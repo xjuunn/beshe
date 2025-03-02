@@ -209,12 +209,12 @@
                   全局主题
                 </NuxtLink>
               </li>
-              <li>
+              <!-- <li>
                 <NuxtLink to="/content">
                   <Icon name="solar:document-bold" size="18"></Icon>
                   项目文档
                 </NuxtLink>
-              </li>
+              </li> -->
             </ul>
           </aside>
         </div>
