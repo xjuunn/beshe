@@ -6,7 +6,8 @@
 
 1.   使用终端打开项目根目录
 2.   执行`npm install`安装依赖
-3.   执行`npm run dev`运行项目
+3.   重命名`env`为`.env`
+4.   执行`npm run dev`运行项目
 
 ## 项目结构
 

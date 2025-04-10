@@ -83,11 +83,21 @@ onMounted(() => {
   initList();
 })
 
+// async function initList() {
+//   isloading.value = true;
+//   let { data } = await Order.listByStatus(3, searchValue.value.pageSize, searchValue.value.pageNum);
+//   listData.value = data.data.records;
+//   listTotal.value = data.data.total;
+//   isloading.value = false;
 async function initList() {
   isloading.value = true;
   let { data } = await Order.listByStatus(3, searchValue.value.pageSize, searchValue.value.pageNum);
   listData.value = data.data.records;
   listTotal.value = data.data.total;
+  let { data: data2 } = await Order.listByStatus(5, searchValue.value.pageSize, searchValue.value.pageNum);
+  // @ts-ignore
+  data2.data.records.forEach(item => { listData.value.push(item) });
+  listTotal.value += data2.data.total
   isloading.value = false;
 }
 async function btnPass(order: Order.OrderDTO) {
