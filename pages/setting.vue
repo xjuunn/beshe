@@ -190,6 +190,7 @@ async function btnUpdate() {
       type: 'success',
       icon: 'mdi:success'
     })
+    syncUserInfo();
     initData();
   } else {
     createToast(data.message, {
@@ -199,6 +200,13 @@ async function btnUpdate() {
     })
   }
 }
+
+async function syncUserInfo() {
+  let { data } = await User.getUserInfo(user.value.username);
+  localStorage.setItem('user', JSON.stringify(data.data));
+  useUserStore().setUser(data.data);
+}
+
 function showSelector() {
   avatarFileSelector.value?.click();
 }
